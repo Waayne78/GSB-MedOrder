@@ -1,5 +1,5 @@
 import PractitionerCard from '../components/PractitionerCard';
-import './styles/main.css';
+import '../styles/main.css';
 
 const Order = () => {
   // Données simulées (à remplacer par un appel API plus tard)
