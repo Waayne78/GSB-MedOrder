@@ -2,7 +2,6 @@ import PractitionerCard from '../components/PractitionerCard';
 import '../styles/main.css';
 
 const Order = () => {
-  // Données simulées (à remplacer par un appel API plus tard)
   const practitioners = [
     { id: 1, name: "Dr. Dupont", specialty: "Médicaments génériques", image: "url-image" },
     { id: 2, name: "Dr. Martin", specialty: "Produits de santé naturels", image: "url-image" },

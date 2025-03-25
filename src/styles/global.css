@@ -1,10 +1,9 @@
-/* Importer toutes les feuilles de style importantes ici */
 @import './variables.css';
 @import './animation.css';
 @import './main.css';
 @import './navbar.css';
 
-/* Styles de base globaux */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -35,13 +34,11 @@ img {
   padding: 0 var(--spacing-lg);
 }
 
-/* Classe utilitaire pour les conteneurs de page */
 .page-container {
   padding-top: 5rem;
   min-height: calc(100vh - 4rem);
 }
 
-/* Styles de bouton communs */
 .btn {
   display: inline-flex;
   align-items: center;

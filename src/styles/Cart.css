@@ -184,7 +184,7 @@
 }
 
 .cart-item-remove:hover {
-  color: #ef4444; /* Rouge pour indiquer la suppression */
+  color: #ef4444; 
 }
 
 .cart-summary {
@@ -223,7 +223,7 @@
 }
 
 .shipping-free {
-  color: #10b981; /* Vert pour indiquer la gratuité */
+  color: #10b981; 
   font-weight: 600;
 }
 
@@ -264,7 +264,7 @@
   text-decoration: underline;
 }
 
-/* Responsive */
+
 @media (max-width: 992px) {
   .cart-container {
     grid-template-columns: 1fr;

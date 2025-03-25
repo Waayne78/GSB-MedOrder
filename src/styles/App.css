@@ -6,7 +6,7 @@
 
 .main-content {
   flex: 1;
-  padding-top: 5rem; /* Espace pour la navbar fixe */
+  padding-top: 5rem; 
   padding-bottom: var(--spacing-2xl);
 }
 

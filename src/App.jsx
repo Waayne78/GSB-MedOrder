@@ -4,6 +4,7 @@ import Contact from './pages/Contact';
 import Order from './pages/Order';
 import PractitionerProfile from './pages/PractitionerProfile';
 import Navbar from './components/Navbar';
+import Login from './pages/login';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/order" element={<Order />} />
         <Route path="/practitioner/:id" element={<PractitionerProfile />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

@@ -5,7 +5,7 @@ import "../styles/Auth.css";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,23 +22,22 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // Simulation d'une requête d'authentification
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Pour la démo, accepte n'importe quelles valeurs
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       console.log("Connexion avec:", formData);
-      
-      // Stockage simulé de l'utilisateur
+
       localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("user", JSON.stringify({
-        id: 1,
-        email: formData.email,
-        firstName: "Utilisateur",
-        lastName: "Test",
-        role: "user"
-      }));
-      
-      // Redirection vers la page d'accueil
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: 1,
+          email: formData.email,
+          firstName: "Utilisateur",
+          lastName: "Test",
+          role: "user",
+        })
+      );
+
       navigate("/");
     } catch (err) {
       setError("Échec de la connexion. Veuillez vérifier vos identifiants.");
@@ -52,9 +51,9 @@ const Login = () => {
       <div className="auth-container">
         <div className="auth-card">
           <h2>Connexion</h2>
-          
+
           {error && <div className="auth-error">{error}</div>}
-          
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
@@ -68,7 +67,7 @@ const Login = () => {
                 placeholder="Votre email"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>
               <input
@@ -81,7 +80,7 @@ const Login = () => {
                 placeholder="Votre mot de passe"
               />
             </div>
-            
+
             <div className="form-options">
               <div className="remember-me">
                 <input type="checkbox" id="remember" />
@@ -91,16 +90,12 @@ const Login = () => {
                 Mot de passe oublié ?
               </Link>
             </div>
-            
-            <button 
-              type="submit" 
-              className="auth-button" 
-              disabled={loading}
-            >
+
+            <button type="submit" className="auth-button" disabled={loading}>
               {loading ? "Connexion en cours..." : "Se connecter"}
             </button>
           </form>
-          
+
           <div className="auth-footer">
             <p>
               Vous n'avez pas de compte ?{" "}
