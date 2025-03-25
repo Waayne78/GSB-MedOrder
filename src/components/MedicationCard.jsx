@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import '../styles/MedicationCard.css'  // Assurez-vous que cette ligne existe
 
 
 const MedicationCard = ({ medication }) => {

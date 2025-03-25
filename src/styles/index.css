@@ -1,0 +1,19 @@
+/* Base et variables */
+ @import './variables.css';
+@import './global.css';
+@import './main.css';
+@import './animation.css';
+
+/* Composants */
+@import './navbar.css';
+@import './MedicationCard.css';
+@import './PractitionerCard.css';
+
+/* Pages */
+    @import './Home.css';
+    @import './Auth.css';
+    @import './Contact.css';
+    @import './MedicationCatalog.css';
+    @import './MedicationDetails.css';
+    @import './PractitionerProfile.css';
+    @import './Cart.css';

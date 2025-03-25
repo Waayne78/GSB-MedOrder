@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/PractitionerCard.css";
-
+import '../styles/PractitionerCard.css'  // Assurez-vous que cette ligne existe
 const PractitionerCard = ({ practitioner }) => {
   return (
     <div className="practitioner-card">

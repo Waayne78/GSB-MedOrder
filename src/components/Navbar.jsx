@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../assets/logo.jpg"; // Assurez-vous que ce fichier existe
+import '../styles/navbar.css'  // Assurez-vous que cette ligne existe
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
