@@ -51,7 +51,7 @@ const Navbar = () => {
             Accueil
           </NavLink>
           <NavLink
-            to="/order"
+            to="/catalog"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Catalogue

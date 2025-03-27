@@ -2,6 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/MedicationDetails.css";
+// Import des images de médicaments
+import logoImg from "../assets/logo.jpg";
+import dolipraneImg from "../assets/Dolipranes.jpg";
+import AdvilImg from "../assets/Advil.jpg";
+import SpasfonImg from "../assets/Spasfon.png";
+import SmectaImg from "../assets/Smeta.jpg";
+import GavisconImg from "../assets/Gaviscon.jpg";
+import ImodiumImg from "../assets/Imodium.jpg";
+import EfferalganImg from "../assets/Efferalgan.png";
+import StrepsilsImg from "../assets/Strepsils.jpg";
+// Import du composant MedicationCard
+import MedicationCard from "../components/MedicationCard";
 
 const MedicationDetail = () => {
   const { id } = useParams();
@@ -15,62 +27,181 @@ const MedicationDetail = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    // Simulation d'une requête API - à remplacer par un vrai appel API
     const fetchMedication = async () => {
       try {
         setLoading(true);
-        // Simulation de données pour le développement
-        setTimeout(() => {
-          setMedication({
-            id: id,
-            name: "Cardiolex",
-            category: "Cardiologie",
-            price: 45.99,
-            image: "/placeholder-medication.jpg",
-            description: "Cardiolex est un médicament innovant pour le traitement des maladies cardiovasculaires. Il est efficace pour réduire l'hypertension artérielle et améliorer la fonction cardiaque.",
-            dosage: "50mg - 100mg",
+        
+        // Base de données simulée des médicaments
+        const mockMedications = [
+          {
+            id: "1",
+            name: "Doliprane",
+            category: "Antalgique",
+            price: 3.99,
+            image: dolipraneImg,
+            description: "Médicament pour faire baisser la fièvre et soulager les douleurs légères à modérées.",
+            dosage: "500mg - 1000mg",
             form: "Comprimés",
-            packaging: "Boîte de 30 comprimés",
+            packaging: "Boîte de 16 comprimés",
             practitioner: {
               id: 1,
-              name: "Dr. Jean Dubois",
-              specialty: "Cardiologie"
+              name: "Dr. Martin",
+              specialty: "Médecine générale"
             },
-            indications: "Hypertension artérielle, insuffisance cardiaque, arythmie",
-            contraindications: "Allergie aux principes actifs, grossesse, allaitement",
-            sideEffects: "Maux de tête, fatigue, vertiges (rares)",
-          });
-          
-          setRelatedMedications([
-            {
+            indications: "Traitement symptomatique des douleurs d'intensité légère à modérée et/ou des états fébriles.",
+            contraindications: "Allergie au paracétamol, insuffisance hépatocellulaire sévère.",
+            sideEffects: "Réactions allergiques, troubles hépatiques (rares).",
+          },
+          {
+            id: "2",
+            name: "Advil",
+            category: "Anti-inflammatoire",
+            price: 5.50,
+            image: AdvilImg,
+            description: "Anti-inflammatoire non stéroïdien pour soulager les douleurs et inflammations.",
+            dosage: "200mg - 400mg",
+            form: "Comprimés enrobés",
+            packaging: "Boîte de 20 comprimés",
+            practitioner: {
               id: 2,
-              name: "Tensiostat",
-              category: "Cardiologie",
-              price: 32.5,
-              image: "/placeholder-medication.jpg",
-              description: "Traitement contre l'hypertension artérielle."
+              name: "Dr. Dupont",
+              specialty: "Rhumatologie"
             },
-            {
+            indications: "Traitement des douleurs légères à modérées et des états fébriles. Traitement symptomatique des rhumatismes inflammatoires et des arthrites.",
+            contraindications: "Allergie à l'ibuprofène, grossesse (à partir du 6ème mois), ulcère gastro-duodénal.",
+            sideEffects: "Troubles digestifs, risques hémorragiques, réactions allergiques cutanées.",
+          },
+          {
+            id: "3",
+            name: "Spasfon",
+            category: "Antispasmodique",
+            price: 4.75,
+            image: SpasfonImg,
+            description: "Médicament utilisé pour le traitement des spasmes et des douleurs abdominales.",
+            dosage: "80mg",
+            form: "Comprimés pelliculés",
+            packaging: "Boîte de 30 comprimés",
+            practitioner: {
               id: 3,
-              name: "Vasodil",
-              category: "Cardiologie",
-              price: 28.75,
-              image: "/placeholder-medication.jpg",
-              description: "Médicament vasodilatateur pour améliorer la circulation sanguine."
+              name: "Dr. Bernard",
+              specialty: "Gastro-entérologie"
             },
-            {
+            indications: "Traitement symptomatique des douleurs liées aux troubles fonctionnels du tube digestif et des voies biliaires, des douleurs spasmodiques en gynécologie.",
+            contraindications: "Hypersensibilité à la substance active.",
+            sideEffects: "Rarement des manifestations allergiques cutanées.",
+          },
+          {
+            id: "4",
+            name: "Smecta",
+            category: "Gastro-entérologie",
+            price: 6.99,
+            image: SmectaImg,
+            description: "Traitement symptomatique de la diarrhée aiguë et chronique.",
+            dosage: "3g par sachet",
+            form: "Poudre pour suspension buvable",
+            packaging: "Boîte de 30 sachets",
+            practitioner: null,
+            indications: "Traitement symptomatique de la diarrhée aiguë et chronique. Traitement des douleurs liées aux affections œso-gastro-duodénales et coliques.",
+            contraindications: "Hypersensibilité à l'un des composants.",
+            sideEffects: "Constipation transitoire, flatulences.",
+          },
+          {
+            id: "5",
+            name: "Gaviscon",
+            category: "Antiacide",
+            price: 7.50,
+            image: GavisconImg,
+            description: "Médicament contre les remontées acides et les brûlures d'estomac.",
+            dosage: "500mg",
+            form: "Comprimés à croquer",
+            packaging: "Boîte de 48 comprimés",
+            practitioner: {
+              id: 3,
+              name: "Dr. Bernard",
+              specialty: "Gastro-entérologie"
+            },
+            indications: "Traitement symptomatique du reflux gastro-œsophagien et des symptômes tels que brûlures d'estomac, remontées acides.",
+            contraindications: "Insuffisance rénale sévère.",
+            sideEffects: "Rarement des réactions allergiques, constipation.",
+          },
+          {
+            id: "6",
+            name: "Imodium",
+            category: "Gastro-entérologie",
+            price: 5.75,
+            image: ImodiumImg,
+            description: "Médicament antidiarrhéique qui ralentit le transit intestinal.",
+            dosage: "2mg",
+            form: "Gélules",
+            packaging: "Boîte de 20 gélules",
+            practitioner: {
+              id: 3,
+              name: "Dr. Bernard",
+              specialty: "Gastro-entérologie"
+            },
+            indications: "Traitement symptomatique des diarrhées aiguës et chroniques.",
+            contraindications: "Enfants de moins de 2 ans, colite aiguë, poussées de rectocolite hémorragique, diarrhée invasive avec fièvre.",
+            sideEffects: "Constipation secondaire, ballonnements, douleurs abdominales, nausées.",
+          },
+          {
+            id: "7",
+            name: "Efferalgan",
+            category: "Antalgique",
+            price: 4.50,
+            image: EfferalganImg,
+            description: "Médicament à base de paracétamol pour soulager les douleurs et la fièvre.",
+            dosage: "500mg - 1000mg",
+            form: "Comprimés effervescents",
+            packaging: "Boîte de 16 comprimés",
+            practitioner: {
+              id: 1,
+              name: "Dr. Martin",
+              specialty: "Médecine générale"
+            },
+            indications: "Traitement symptomatique des douleurs d'intensité légère à modérée et/ou des états fébriles.",
+            contraindications: "Allergie au paracétamol, insuffisance hépatocellulaire sévère.",
+            sideEffects: "Rarement des réactions d'hypersensibilité, troubles hépatiques.",
+          },
+          {
+            id: "8",
+            name: "Strepsils",
+            category: "ORL",
+            price: 6.20,
+            image: StrepsilsImg,
+            description: "Pastilles pour soulager les maux de gorge et les irritations.",
+            dosage: "1.2mg - 0.6mg",
+            form: "Pastilles à sucer",
+            packaging: "Boîte de 24 pastilles",
+            practitioner: {
               id: 4,
-              name: "Rythmocard",
-              category: "Cardiologie",
-              price: 52.99,
-              image: "/placeholder-medication.jpg",
-              description: "Traitement des troubles du rythme cardiaque."
-            }
-          ]);
+              name: "Dr. Rousseau",
+              specialty: "ORL"
+            },
+            indications: "Traitement symptomatique des affections douloureuses de la cavité buccale et de l'oropharynx.",
+            contraindications: "Hypersensibilité à l'un des composants.",
+            sideEffects: "Rarement des réactions allergiques, nausées.",
+          }
+        ];
+
+        // Rechercher le médicament spécifique par ID
+        const selectedMedication = mockMedications.find(med => med.id === id);
+        
+        if (selectedMedication) {
+          setMedication(selectedMedication);
           
+          // Trouver des médicaments similaires (même catégorie)
+          const similar = mockMedications
+            .filter(med => med.id !== id && med.category === selectedMedication.category)
+            .slice(0, 3);
+          
+          setRelatedMedications(similar);
           setLoading(false);
-        }, 1000);
+        } else {
+          setError("Médicament non trouvé");
+          setLoading(false);
+        }
       } catch (err) {
+        console.error("Erreur lors du chargement des données du médicament:", err);
         setError("Erreur lors du chargement des données du médicament");
         setLoading(false);
       }
@@ -130,7 +261,14 @@ const MedicationDetail = () => {
       <div className="detail-container">
         <div className="detail-grid">
           <div className="detail-image">
-            <img src={medication.image} alt={medication.name} />
+            <img 
+              src={medication.image} 
+              alt={medication.name} 
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = logoImg;
+              }}
+            />
           </div>
           <div className="detail-content">
             <span className="detail-category">{medication.category}</span>
@@ -156,9 +294,13 @@ const MedicationDetail = () => {
               </div>
               <div className="detail-meta-item">
                 <span className="detail-meta-label">Praticien</span>
-                <Link to={`/practitioner/${medication.practitioner.id}`} className="detail-meta-value">
-                  {medication.practitioner.name}
-                </Link>
+                {medication.practitioner ? (
+                  <Link to={`/practitioner/${medication.practitioner.id}`} className="detail-meta-value">
+                    {medication.practitioner.name}
+                  </Link>
+                ) : (
+                  <span className="detail-meta-value">Information non disponible</span>
+                )}
               </div>
             </div>
             
@@ -264,22 +406,7 @@ const MedicationDetail = () => {
         <h2 className="related-title">Médicaments similaires</h2>
         <div className="related-grid">
           {relatedMedications.map(relatedMed => (
-            <div className="medication-card" key={relatedMed.id}>
-              <div className="medication-image">
-                <img src={relatedMed.image} alt={relatedMed.name} />
-                <span className="medication-category">{relatedMed.category}</span>
-              </div>
-              <div className="medication-info">
-                <h3 className="medication-name">{relatedMed.name}</h3>
-                <p className="medication-price">{relatedMed.price.toFixed(2)} €</p>
-                <p className="medication-description">{relatedMed.description}</p>
-                <div className="medication-actions">
-                  <Link to={`/medication/${relatedMed.id}`} className="btn-details">
-                    Détails
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <MedicationCard key={relatedMed.id} medication={relatedMed} />
           ))}
         </div>
       </div>

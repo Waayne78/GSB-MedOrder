@@ -1,6 +1,5 @@
 const db = require("../config/db");
 
-// Créer une commande
 exports.createCommande = async (req, res) => {
   const { user_id, statut, montant_total } = req.body;
   try {
@@ -14,7 +13,6 @@ exports.createCommande = async (req, res) => {
   }
 };
 
-// Obtenir toutes les commandes
 exports.getCommandes = async (req, res) => {
   try {
     const [rows] = await db.execute("SELECT * FROM Commandes");

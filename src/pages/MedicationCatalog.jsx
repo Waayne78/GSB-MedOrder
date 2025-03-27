@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/MedicationCatalog.css";
+// Import de l'image disponible pour les placeholders
+import logoImg from "../assets/logo.jpg";
+import dolipraneImg from "../assets/Dolipranes.jpg";
+import AdvilImg from "../assets/Advil.jpg";
+import SpasfonImg from "../assets/Spasfon.png";
+import SmectaImg from "../assets/Smeta.jpg";
+import GavisconImg from "../assets/Gaviscon.jpg";
+import ImodiumImg from "../assets/Imodium.jpg";
+import EfferalganImg from "../assets/Efferalgan.png";
+import StrepsilsImg from "../assets/Strepsils.jpg";
 
 const MedicationCatalog = () => {
   const [medications, setMedications] = useState([]);
@@ -16,6 +26,7 @@ const MedicationCatalog = () => {
   });
 
   useEffect(() => {
+    console.log("Chargement des médicaments...");
     // Simulation d'une requête API
     const fetchMedications = async () => {
       try {
@@ -23,63 +34,117 @@ const MedicationCatalog = () => {
         // Simuler un délai réseau
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // Données de test
+        // Données de test avec des médicaments connus
         const mockMedications = [
           {
             id: 1,
-            name: "Cardiolex",
-            category: "Cardiologie",
-            price: 45.99,
-            image: "/placeholder-medication.jpg",
-            description: "Médicament pour le traitement des maladies cardiovasculaires."
+            name: "Doliprane",
+            category: "Antalgique",
+            price: 3.99,
+            image: dolipraneImg,
+            description: "Médicament pour faire baisser la fièvre et soulager les douleurs légères à modérées.",
+            practitioner: {
+              id: 1,
+              name: "Dr. Martin",
+              specialty: "Médecine générale"
+            }
           },
           {
             id: 2,
-            name: "Tensiostat",
-            category: "Cardiologie",
-            price: 32.5,
-            image: "/placeholder-medication.jpg",
-            description: "Traitement contre l'hypertension artérielle."
+            name: "Advil",
+            category: "Anti-inflammatoire",
+            price: 5.50,
+            image: AdvilImg,
+            description: "Anti-inflammatoire non stéroïdien pour soulager les douleurs et inflammations.",
+            practitioner: {
+              id: 2,
+              name: "Dr. Dupont",
+              specialty: "Rhumatologie"
+            }
           },
           {
             id: 3,
-            name: "Vasodil",
-            category: "Cardiologie",
-            price: 28.75,
-            image: "/placeholder-medication.jpg",
-            description: "Médicament vasodilatateur pour améliorer la circulation sanguine."
+            name: "Spasfon",
+            category: "Antispasmodique",
+            price: 4.75,
+            image: SpasfonImg,
+            description: "Médicament utilisé pour le traitement des spasmes et des douleurs abdominales.",
+            practitioner: {
+              id: 3,
+              name: "Dr. Bernard",
+              specialty: "Gastro-entérologie"
+            }
           },
           {
             id: 4,
-            name: "Rythmocard",
-            category: "Cardiologie",
-            price: 52.99,
-            image: "/placeholder-medication.jpg",
-            description: "Traitement des troubles du rythme cardiaque."
+            name: "Smecta",
+            category: "Gastro-entérologie",
+            price: 6.99,
+            image: SmectaImg,
+            description: "Traitement symptomatique de la diarrhée aiguë et chronique.",
+            practitioner: null // Exemple d'un médicament sans praticien associé
           },
           {
             id: 5,
-            name: "Antibiofort",
-            category: "Antibiotique",
-            price: 18.50,
-            image: "/placeholder-medication.jpg",
-            description: "Antibiotique à large spectre pour traiter diverses infections bactériennes."
+            name: "Gaviscon",
+            category: "Antiacide",
+            price: 7.50,
+            image: GavisconImg,
+            description: "Médicament contre les remontées acides et les brûlures d'estomac.",
+            practitioner: {
+              id: 3,
+              name: "Dr. Bernard",
+              specialty: "Gastro-entérologie"
+            }
           },
           {
             id: 6,
-            name: "Neuralgex",
-            category: "Neurologie",
-            price: 39.75,
-            image: "/placeholder-medication.jpg",
-            description: "Traitement des douleurs neurologiques et neuropathiques."
+            name: "Imodium",
+            category: "Gastro-entérologie",
+            price: 5.75,
+            image: ImodiumImg,
+            description: "Médicament antidiarrhéique qui ralentit le transit intestinal.",
+            practitioner: {
+              id: 3,
+              name: "Dr. Bernard",
+              specialty: "Gastro-entérologie"
+            }
+          },
+          {
+            id: 7,
+            name: "Efferalgan",
+            category: "Antalgique",
+            price: 4.50,
+            image: EfferalganImg,
+            description: "Médicament à base de paracétamol pour soulager les douleurs et la fièvre.",
+            practitioner: {
+              id: 1,
+              name: "Dr. Martin",
+              specialty: "Médecine générale"
+            }
+          },
+          {
+            id: 8,
+            name: "Strepsils",
+            category: "ORL",
+            price: 6.20,
+            image: StrepsilsImg,
+            description: "Pastilles pour soulager les maux de gorge et les irritations.",
+            practitioner: {
+              id: 4,
+              name: "Dr. Rousseau",
+              specialty: "ORL"
+            }
           }
         ];
         
+        console.log("Médicaments chargés:", mockMedications);
         setMedications(mockMedications);
         setLoading(false);
       } catch (err) {
         setError("Erreur lors du chargement des médicaments");
         setLoading(false);
+        console.error("Erreur lors du chargement des médicaments:", err);
       }
     };
 
@@ -275,7 +340,14 @@ const MedicationCatalog = () => {
           {filteredMedications.map(medication => (
             <div className="medication-card" key={medication.id}>
               <div className="medication-image">
-                <img src={medication.image} alt={medication.name} />
+                <img 
+                  src={medication.image} 
+                  alt={medication.name} 
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = logoImg;
+                  }}
+                />
                 <span className="medication-category">{medication.category}</span>
               </div>
               <div className="medication-info">
@@ -302,4 +374,4 @@ const MedicationCatalog = () => {
   );
 };
 
-export default MedicationCatalog; 
+export default MedicationCatalog;

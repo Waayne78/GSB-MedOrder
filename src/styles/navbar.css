@@ -1,9 +1,13 @@
+:root {
+  --navbar-height: 4rem;
+}
+
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 4rem;
+  height: var(--navbar-height);
   background-color: white;
   box-shadow: var(--shadow-md);
   z-index: 1000;
@@ -160,7 +164,7 @@
 @media (max-width: 768px) {
   .navbar-menu {
     position: fixed;
-    top: 4rem;
+    top: var(--navbar-height);
     left: 0;
     right: 0;
     bottom: 0;
@@ -209,4 +213,9 @@
     background: var(--primary-color-dark);
     border-color: var(--primary-color-dark);
   }
+}
+
+/* Style pour le conteneur principal de toutes les pages */
+.container {
+  padding-top: calc(var(--navbar-height) + 2rem);
 }

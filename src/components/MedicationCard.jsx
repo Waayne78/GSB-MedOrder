@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import '../styles/MedicationCard.css'  // Assurez-vous que cette ligne existe
-
+import '../styles/MedicationCard.css';
+import logoImg from "../assets/logo.jpg"; // Import de l'image de placeholder
 
 const MedicationCard = ({ medication }) => {
   const handleAddToCart = () => {
@@ -8,24 +8,42 @@ const MedicationCard = ({ medication }) => {
     alert(`Ajouté au panier : ${medication.name}`);
   };
 
+  // Vérifier si l'objet medication et ses propriétés existent
+  if (!medication) {
+    return (
+      <div className="medication-card error-card">
+        <p>Information sur le médicament non disponible</p>
+      </div>
+    );
+  }
+
   return (
     <div className="medication-card">
       <div className="medication-image">
         <img 
-          src={medication.image || "/placeholder-medication.jpg"} 
+          src={medication.image || logoImg} 
           alt={medication.name} 
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = logoImg;
+          }}
         />
-        <span className="medication-category">{medication.category}</span>
+        <span className="medication-category">{medication.category || "Non catégorisé"}</span>
       </div>
       
       <div className="medication-info">
         <h3 className="medication-name">{medication.name}</h3>
-        <p className="medication-price">{medication.price.toFixed(2)} €</p>
+        <p className="medication-price">{medication.price ? medication.price.toFixed(2) : "0.00"} €</p>
         
         <div className="medication-description">
-          {medication.description && medication.description.substring(0, 100)}
-          {medication.description && medication.description.length > 100 && "..."}
+          {medication.description || "Aucune description disponible"}
         </div>
+        
+        {medication.practitioner && (
+          <p className="medication-practitioner">
+            Praticien: {medication.practitioner.name}
+          </p>
+        )}
         
         <div className="medication-actions">
           <Link to={`/medication/${medication.id}`} className="btn-details">
@@ -33,7 +51,10 @@ const MedicationCard = ({ medication }) => {
           </Link>
           
           <button className="btn-add-to-cart" onClick={handleAddToCart}>
-            Ajouter au panier
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 9H13V6H16V4H13V1H11V4H8V6H11V9ZM7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18ZM7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L21.16 4.96L19.42 4H19.41L18.31 6L15.55 11H8.53L8.4 10.73L6.16 6L5.21 4L4.27 2H1V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.29 15 7.17 14.89 7.17 14.75Z" fill="currentColor"/>
+            </svg>
+            Ajouter
           </button>
         </div>
       </div>
