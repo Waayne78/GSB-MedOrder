@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const userRoutes = require('./routes/userRoutes');
+const practitionerRoutes = require('./routes/practitionerRoutes');
 const medicamentRoutes = require('./routes/medicamentRoutes');
 const commandeRoutes = require('./routes/commandeRoutes');
 const suiviCommandeRoutes = require('./routes/suiviCommandeRoutes');
@@ -14,11 +14,16 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/users', userRoutes);  // Préfixe pour les routes utilisateurs
-app.use('/api/medicaments', medicamentRoutes);  // Préfixe pour les routes médicaments
-app.use('/api/commandes', commandeRoutes);  // Préfixe pour les routes commandes
-app.use('/api/suivi-commandes', suiviCommandeRoutes);  // Préfixe pour les routes suivi des commandes
-app.use('/api/ligne-commandes', ligneCommandeRoutes);  // Préfixe pour les routes lignes de commande
+app.use('/api', practitionerRoutes);
+app.use('/api', medicamentRoutes);
+app.use('/api', commandeRoutes);
+app.use('/api', suiviCommandeRoutes);
+app.use('/api', ligneCommandeRoutes);
+
+// Route pour la racine (/)
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur l\'API GSB !');
+});
 
 // Démarrer le serveur
 app.listen(PORT, () => {
