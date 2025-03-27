@@ -1,11 +1,9 @@
 const express = require('express');
+const router = express.Router();
 const medicamentController = require('../controllers/medicamentController');
 
-const router = express.Router();
-
-// Routes pour les médicaments
-router.post('/medicaments', medicamentController.createMedicament);
-router.get('/medicaments', medicamentController.getMedicaments);
-router.get('/medicaments/:id', medicamentController.getMedicamentById);
+router.get('/medicaments', medicamentController.getAllMedicaments);
+router.post('/medicaments', medicamentController.addMedicament);
+router.put('/medicaments/:id', medicamentController.updateMedicament);
 
 module.exports = router;

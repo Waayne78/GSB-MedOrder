@@ -1,39 +1,27 @@
-const db = require('../config/db');
+const db = require('../models/db');
 
-// Créer une ligne de commande
-exports.createLigneCommande = async (req, res) => {
-  const { commande_id, medicament_id, quantite, prix_unitaire_historique } = req.body;
-  try {
-    const [result] = await db.execute(
-      'INSERT INTO LignesCommande (commande_id, medicament_id, quantite, prix_unitaire_historique) VALUES (?, ?, ?, ?)',
-      [commande_id, medicament_id, quantite, prix_unitaire_historique]
+// Ajouter une ligne à la commande
+exports.addLigneCommande = (req, res) => {
+    const { commande_id, medicament_id, quantite, prix_unitaire } = req.body;
+    db.query(
+        'INSERT INTO commande_details (commande_id, medicament_id, quantite, prix_unitaire) VALUES (?, ?, ?, ?)',
+        [commande_id, medicament_id, quantite, prix_unitaire],
+        (err, results) => {
+            if (err) {
+                return res.status(500).json({ message: 'Erreur du serveur', error: err });
+            }
+            res.status(201).json({ message: 'Ligne de commande ajoutée', id: results.insertId });
+        }
     );
-    res.status(201).json({ id: result.insertId, commande_id, medicament_id });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
 };
 
-// Obtenir toutes les lignes de commande
-exports.getLignesCommande = async (req, res) => {
-  try {
-    const [rows] = await db.execute('SELECT * FROM LignesCommande');
-    res.status(200).json(rows);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Obtenir une ligne de commande par ID
-exports.getLigneCommandeById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const [rows] = await db.execute('SELECT * FROM LignesCommande WHERE ligne_id = ?', [id]);
-    if (rows.length === 0) {
-      return res.status(404).json({ message: 'Ligne de commande non trouvée' });
-    }
-    res.status(200).json(rows[0]);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+// Récupérer les détails d'une commande
+exports.getLignesCommande = (req, res) => {
+    const { commande_id } = req.params;
+    db.query('SELECT * FROM commande_details WHERE commande_id = ?', [commande_id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erreur du serveur', error: err });
+        }
+        res.json(results);
+    });
 };
