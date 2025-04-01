@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GSB MedOrder</title>
+    <style>
+      html, body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Réinitialiser les styles de conteneur pour permettre les largeurs limitées */
+      .container, .hero-content, .hero-container, .page-container, .section-content {
+        width: 90% !important;
+        max-width: 1200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      
+      /* La section hero utilise 100% sans maximum */
+      .hero {
+        width: 100% !important;
+        max-width: none !important;
+      }
+      
+      /* Images à 100% mais avec max-width */
+      img {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      
+      /* La navbar et son contenu utilisent 100% */
+      .navbar, .navbar-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

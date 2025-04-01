@@ -1,0 +1,393 @@
+:root {
+  --primary-color: #2a6dd2;
+  --primary-dark: #1d4e9e;
+  --primary-light: #4a8ee6;
+  --secondary-color: #34d399;
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-full: 9999px;
+  --navbar-height: 4rem; /* Même hauteur que dans navbar.css */
+}
+
+.medication-detail {
+  padding-bottom: var(--spacing-2xl);
+  padding-left: var(--spacing-xl);
+  padding-right: var(--spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail-container {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  margin-bottom: var(--spacing-2xl);
+  width: 100%;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 0;
+}
+
+.detail-image {
+  height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neutral-100);
+  padding: var(--spacing-xl);
+}
+
+.detail-image img {
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.detail-image:hover img {
+  transform: scale(1.05);
+}
+
+.detail-content {
+  padding: var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-category {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.375rem 1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.025em;
+}
+
+.detail-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--neutral-900);
+  line-height: 1.2;
+}
+
+.detail-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-xl);
+}
+
+.detail-description {
+  color: var(--neutral-700);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-xl);
+  font-size: 1.05rem;
+}
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl) var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background-color: transparent;
+}
+
+.detail-meta-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-meta-label {
+  font-size: 0.9rem;
+  color: var(--neutral-500);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-meta-value {
+  font-weight: 600;
+  color: var(--neutral-800);
+  font-size: 1.1rem;
+}
+
+.detail-meta-value a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.detail-meta-value a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.detail-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.quantity-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neutral-100);
+  border: none;
+  font-size: 1.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: var(--neutral-200);
+}
+
+.quantity-input {
+  width: 60px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.quantity-input:focus {
+  outline: none;
+}
+
+.btn-add-to-cart-large {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(42, 109, 210, 0.2);
+  width: 100%;
+}
+
+.btn-add-to-cart-large:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px rgba(42, 109, 210, 0.3);
+}
+
+.btn-add-to-cart-large:active {
+  transform: translateY(0);
+}
+
+.btn-add-to-cart-large svg {
+  width: 24px;
+  height: 24px;
+}
+
+.medication-tabs {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-bottom: var(--spacing-2xl);
+  overflow: hidden;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 1px solid var(--neutral-200);
+  padding: 0;
+}
+
+.tab-button {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-weight: 600;
+  color: var(--neutral-600);
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 1rem;
+  flex: 1;
+  text-align: center;
+}
+
+.tab-button:hover {
+  color: var(--primary-light);
+}
+
+.tab-button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background-color: transparent;
+}
+
+.tab-content {
+  padding: var(--spacing-xl) var(--spacing-2xl);
+}
+
+.tab-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--neutral-900);
+  font-weight: 600;
+}
+
+.tab-content p {
+  line-height: 1.7;
+  color: var(--neutral-700);
+  font-size: 1.05rem;
+}
+
+.medication-related {
+  margin-top: var(--spacing-2xl);
+}
+
+.related-title {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  font-size: 1.875rem;
+  color: var(--neutral-900);
+  position: relative;
+}
+
+.related-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: var(--primary-color);
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+}
+
+/* Les styles pour les cartes de médicament sont importés depuis MedicationCard.css */
+
+@media (max-width: 992px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-image {
+    height: 300px;
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-meta {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabs-header {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation pour la notification d'ajout au panier */
+.cart-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  max-width: 350px;
+}
+
+.cart-notification.error {
+  background-color: #f44336;
+}
+
+.cart-notification .notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-notification svg {
+  flex-shrink: 0;
+}
+
+.cart-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}

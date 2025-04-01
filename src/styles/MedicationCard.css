@@ -1,0 +1,151 @@
+:root {
+  --navbar-height: 4rem; /* Même valeur que dans navbar.css */
+}
+
+.medication-card {
+    background-color: white;
+    border-radius: var(--radius-lg, 0.5rem);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .medication-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .medication-image {
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .medication-image img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  .medication-card:hover .medication-image img {
+    transform: scale(1.05);
+  }
+  
+  .medication-category {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: #2a6dd2;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    z-index: 1;
+  }
+  
+  .medication-info {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .medication-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #111827;
+    line-height: 1.3;
+  }
+  
+  .medication-price {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #2a6dd2;
+    margin-bottom: 1rem;
+  }
+  
+  .medication-description {
+    color: #4b5563;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .medication-practitioner {
+    color: #374151;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    padding: 0.35rem 0.75rem;
+    background-color: #f3f4f6;
+    border-radius: 0.375rem;
+    display: inline-block;
+    font-weight: 500;
+  }
+  
+  .error-card {
+    padding: 2rem;
+    text-align: center;
+    color: #4b5563;
+    border: 1px dashed #d1d5db;
+  }
+  
+  .medication-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    gap: 0.5rem;
+  }
+  
+  .btn-details {
+    color: #4b5563;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+    flex: 1;
+  }
+  
+  .btn-details:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  .btn-add-to-cart {
+    background-color: #2a6dd2;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    flex: 1;
+  }
+  
+  .btn-add-to-cart:hover {
+    background-color: #1d4e9e;
+  }

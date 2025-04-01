@@ -1,0 +1,408 @@
+/* Styles généraux pour la page détail */
+.medication-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Styles pour les notifications */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  max-width: 350px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-success {
+  border-left: 4px solid #28a745;
+}
+
+.notification-error {
+  border-left: 4px solid #dc3545;
+}
+
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+.notification-content svg {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.notification-success svg {
+  color: #28a745;
+}
+
+.notification-error svg {
+  color: #dc3545;
+}
+
+.notification-text {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.notification-detail {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Styles pour le sélecteur de quantité */
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d0e3f2;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 16px;
+  background-color: #f8f9fa;
+}
+
+.quantity-selector button {
+  background-color: #f1f8fe;
+  border: none;
+  color: #0077cc;
+  font-size: 18px;
+  font-weight: bold;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.quantity-selector button:hover:not(:disabled) {
+  background-color: #e4f0fb;
+}
+
+.quantity-selector button:disabled {
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.quantity-selector span {
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Styles pour le bouton d'ajout au panier */
+.add-to-cart-btn {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0 24px;
+  height: 45px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 119, 204, 0.2);
+  flex-grow: 1;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #005fa3;
+  box-shadow: 0 6px 10px rgba(0, 119, 204, 0.3);
+  transform: translateY(-2px);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(0);
+}
+
+.add-to-cart-btn svg {
+  margin-right: 10px;
+}
+
+/* Animation de pulsation */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.add-to-cart-btn.pulse-animation {
+  animation: pulse 0.8s ease;
+  background-color: #28a745;
+}
+
+/* Style pour le bouton de connexion */
+.login-required-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  height: 50px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-required-btn:hover {
+  background-color: #5a6268;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.login-required-btn svg {
+  margin-right: 8px;
+}
+
+/* Conteneur d'actions amélioré */
+.medication-actions {
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+}
+
+/* Message de connexion modal */
+.login-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.login-message-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  max-width: 450px;
+  width: 90%;
+  display: flex;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.login-message-content svg {
+  color: #0077cc;
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.login-message-content h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.login-message-content p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.login-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-login, .btn-register {
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-login {
+  background-color: #0077cc;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #005fa3;
+}
+
+.btn-register {
+  background-color: #f1f8fe;
+  color: #0077cc;
+  border: 1px solid #d0e3f2;
+}
+
+.btn-register:hover {
+  background-color: #e4f0fb;
+}
+
+.close-message {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 5px;
+}
+
+.close-message:hover {
+  color: #666;
+}
+
+/* Styles pour les actions produit (quantité et bouton) */
+.product-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  gap: 15px;
+}
+
+/* Styles pour le contrôle de quantité */
+.medication-detail-container .quantity-controls {
+  display: flex;
+  align-items: center;
+  background-color: #f7f9fc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px; /* Espace sous les contrôles */
+  width: fit-content; /* Limitez la largeur au contenu */
+}
+
+.medication-detail-container .quantity-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  transition: all 0.2s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.medication-detail-container .quantity-btn:hover:not(:disabled) {
+  background-color: #e8f0fe;
+}
+
+.medication-detail-container .quantity-btn:disabled {
+  color: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.medication-detail-container .quantity-value {
+  min-width: 40px;
+  padding: 0 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2d3748;
+}
+
+/* Styles pour le bouton d'ajout au panier */
+.medication-detail-container .add-to-cart-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+}
+
+.medication-detail-container .add-to-cart-button:hover {
+  background-color: #0069d9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.medication-detail-container .add-to-cart-button:active {
+  transform: translateY(0);
+}
+
+.medication-detail-container .add-to-cart-button svg {
+  margin-right: 10px;
+}
+
+/* Animation lorsque le bouton est cliqué */
+@keyframes buttonSuccess {
+  0% { background-color: #007bff; }
+  50% { background-color: #28a745; }
+  100% { background-color: #007bff; }
+}
+
+.medication-detail-container .add-to-cart-button.success-animation {
+  animation: buttonSuccess 1.5s ease;
+}
+
+/* Adaptation pour les petits écrans */
+@media (max-width: 640px) {
+  .product-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .medication-detail-container .quantity-controls {
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+} 

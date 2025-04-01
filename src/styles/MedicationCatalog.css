@@ -1,0 +1,763 @@
+:root {
+  --primary-color: #2a6dd2;
+  --primary-dark: #1d4e9e;
+  --primary-light: #4a8ee6;
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --navbar-height: 4rem; /* Même valeur que dans navbar.css */
+}
+
+.medication-catalog {
+  padding: var(--spacing-2xl) 0;
+  min-height: 80vh; /* Pour garantir une hauteur minimale */
+  padding-top: calc(var(--navbar-height) + 2rem); /* Pour tenir compte de la navbar fixe */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--spacing-xl);
+  padding-right: var(--spacing-xl);
+}
+
+.medication-catalog h1 {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  color: var(--neutral-900);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.catalog-controls {
+  margin-bottom: var(--spacing-2xl);
+  background-color: white;
+  padding: var(--spacing-lg);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-container {
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: 0.375rem;
+  font-size: 1rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(45, 112, 212, 0.1);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  flex-grow: 1;
+}
+
+.filter-group label {
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--neutral-700);
+}
+
+.filter-group select,
+.filter-group input {
+  padding: 0.5rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--neutral-800);
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.btn-outline {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid var(--neutral-300);
+  border-radius: 0.375rem;
+  color: var(--neutral-600);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  height: fit-content;
+  margin-top: auto;
+}
+
+.btn-outline:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.medications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.medication-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.medication-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.medication-card .medication-image {
+  height: auto;
+  max-height: 180px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.medication-card .medication-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 180px;
+  transition: transform 0.3s;
+}
+
+.medication-card:hover .medication-image img {
+  transform: scale(1.05);
+}
+
+.medication-category {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.medication-info {
+  padding: var(--spacing-lg);
+}
+
+.medication-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--neutral-900);
+}
+
+.medication-price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.medication-description {
+  color: var(--neutral-600);
+  margin-bottom: var(--spacing-lg);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  max-height: 4.5em; /* 3 lignes × 1.5 line-height */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+/* Support pour les navigateurs qui ne supportent pas -webkit-line-clamp */
+@supports not ((-webkit-line-clamp: 3) and (-webkit-box-orient: vertical)) {
+  .medication-description::after {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: white;
+    padding-left: 3px;
+  }
+}
+
+.medication-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-details {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid var(--neutral-300);
+  border-radius: 0.375rem;
+  color: var(--neutral-600);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.btn-details:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-add-to-cart {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-add-to-cart:hover {
+  background-color: var(--primary-dark);
+}
+
+.no-results {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.no-results h2 {
+  color: var(--neutral-800);
+  margin-bottom: var(--spacing-md);
+}
+
+.no-results p {
+  color: var(--neutral-600);
+}
+
+.catalog-loading, 
+.catalog-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl) 0;
+  min-height: 60vh;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--neutral-200);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+}
+
+/* Styles pour les notifications */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+  max-width: 350px;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.notification-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+.notification-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border-left: 4px solid #ffc107;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+}
+
+.notification-content svg {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.notification-content span {
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Styles modernisés pour les boutons */
+
+/* Bouton de détails */
+.medication-card .details-btn {
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #ced4da;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.medication-card .details-btn:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.medication-card .details-btn svg {
+  margin-right: 8px;
+}
+
+/* Bouton d'ajout au panier */
+.medication-card .add-to-cart-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+}
+
+.medication-card .add-to-cart-btn:hover {
+  background-color: #0069d9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.medication-card .add-to-cart-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.medication-card .add-to-cart-btn .btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.medication-card .add-to-cart-btn .btn-added {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #28a745;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.medication-card .add-to-cart-btn .btn-added svg,
+.medication-card .add-to-cart-btn .btn-content svg {
+  margin-right: 8px;
+}
+
+.medication-card .add-to-cart-btn.clicked .btn-content {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.medication-card .add-to-cart-btn.clicked .btn-added {
+  transform: translateY(0);
+}
+
+/* Bouton de connexion */
+.medication-card .login-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.medication-card .login-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.medication-card .login-btn svg {
+  margin-right: 8px;
+}
+
+/* Style amélioré pour les conteneurs d'actions */
+.medication-card .medication-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Notifications améliorées */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+  max-width: 350px;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.notification-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+.notification-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border-left: 4px solid #ffc107;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+}
+
+.notification-content svg {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.notification-content span {
+  line-height: 1.5;
+  font-weight: 500;
+} 
+.add-to-cart-btn.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Styles pour les boutons */
+.medication-card .details-btn, 
+.medication-card .add-to-cart-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.medication-card .details-btn {
+  background-color: #f1f8fe;
+  color: #0077cc;
+  border: 1px solid #d0e3f2;
+}
+
+.medication-card .details-btn:hover {
+  background-color: #e4f0fb;
+  box-shadow: 0 2px 5px rgba(0, 119, 204, 0.1);
+}
+
+.medication-card .add-to-cart-btn {
+  background-color: #0077cc;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 119, 204, 0.2);
+}
+
+.medication-card .add-to-cart-btn:hover {
+  background-color: #005fa3;
+  box-shadow: 0 4px 8px rgba(0, 119, 204, 0.3);
+  transform: translateY(-1px);
+}
+
+.medication-card .details-btn svg,
+.medication-card .add-to-cart-btn svg {
+  margin-right: 8px;
+}
+
+/* Animation de pulsation pour le bouton */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.medication-card .add-to-cart-btn.pulse-animation {
+  animation: pulse 0.8s ease;
+  background-color: #28a745;
+}
+
+/* Conteneur des actions */
+.medication-card .medication-actions {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+}
+
+/* Message de connexion modal */
+.login-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.login-message-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  max-width: 450px;
+  width: 90%;
+  display: flex;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.login-message-content svg {
+  color: #0077cc;
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.login-message-content h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.login-message-content p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.login-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-login, .btn-register {
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-login {
+  background-color: #0077cc;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #005fa3;
+}
+
+.btn-register {
+  background-color: #f1f8fe;
+  color: #0077cc;
+  border: 1px solid #d0e3f2;
+}
+
+.btn-register:hover {
+  background-color: #e4f0fb;
+}
+
+.close-message {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 5px;
+}
+
+.close-message:hover {
+  color: #666;
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification-success {
+  border-left: 4px solid #28a745;
+}
+
+.notification-error {
+  border-left: 4px solid #dc3545;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+}
+
+.notification-success svg {
+  color: #28a745;
+  margin-right: 15px;
+}
+
+.notification-error svg {
+  color: #dc3545;
+  margin-right: 15px;
+}
+
+.notification-content span {
+  color: #333;
+  font-weight: 500;
+} 

@@ -1,0 +1,719 @@
+.practitioner-profile {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.6s ease-out;
+  }
+  
+  .profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #0088cc, #00ccff);
+  }
+  
+  .profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e6f2ff;
+    border: 3px solid #0D8ABC;
+  }
+  
+  .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-info {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .profile-name {
+    color: #333;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  
+  .profile-title {
+    color: #555;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .profile-meta-item {
+    display: flex;
+    align-items: center;
+    color: var(--neutral-600);
+  }
+  
+  .profile-meta-item svg {
+    margin-right: var(--spacing-sm);
+    color: var(--primary-color);
+  }
+  
+  .profile-specialty {
+    display: inline-block;
+    background-color: #0088cc;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0, 136, 204, 0.3);
+    margin-bottom: 15px;
+  }
+  
+  .profile-description {
+    margin-top: var(--spacing-lg);
+    color: var(--neutral-700);
+    line-height: 1.6;
+  }
+  
+  .profile-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-xl);
+  }
+  
+  .profile-section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    animation: slideIn 0.6s ease-out;
+  }
+  
+  .profile-section-title {
+    color: #0088cc;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .profile-medications {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .profile-contact-form {
+    position: sticky;
+    top: calc(5rem + var(--spacing-md));
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-left: 4px solid #0088cc;
+  }
+  
+  .contact-form {
+    margin-top: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #0088cc;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+  }
+  
+  .form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(to right, #0088cc, #00a3cc);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3);
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(to right, #0079b6, #0088cc);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 136, 204, 0.4);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 136, 204, 0.4);
+  }
+  
+  @media (max-width: 992px) {
+    .profile-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .profile-contact-form {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .profile-header {
+      flex-direction: column;
+    }
+    
+    .profile-image {
+      width: 100%;
+      height: 250px;
+    }
+    
+    .profile-medications {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .profile-header {
+      flex-direction: row;
+      text-align: left;
+      padding: 40px;
+    }
+    
+    .profile-avatar-container {
+      margin: 0 40px 0 0;
+      flex-shrink: 0;
+    }
+    
+    .profile-info {
+      margin-top: 0;
+    }
+  }
+  
+  /* Styles améliorés pour l'avatar du praticien */
+  .profile-avatar-container {
+    margin: 0 auto 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 6px;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0, 136, 204, 0.2);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .profile-avatar-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #0088cc, #00ccff);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.7;
+    filter: blur(5px);
+  }
+  
+  .profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-avatar::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 60%);
+    pointer-events: none;
+  }
+  
+  .avatar-initials {
+    letter-spacing: 2px;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes slideIn {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Styles pour les cartes de médicaments */
+  .medication-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    max-width: 320px;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .medication-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .medication-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+  }
+
+  .medication-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    transition: transform 0.5s ease;
+  }
+
+  .medication-card:hover .medication-image img {
+    transform: scale(1.08);
+  }
+
+  .medication-image img[src*="logo.jpg"] {
+    object-fit: contain;
+    padding: 15px;
+    background-color: white;
+  }
+
+  .medication-category {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .medication-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .medication-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .medication-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+
+  .medication-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    flex-grow: 1;
+  }
+
+  .medication-actions {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    gap: 10px;
+  }
+
+  .details-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    background-color: #f0f7ff;
+    color: #0088cc;
+    border: 1px solid #0088cc;
+    flex: 1;
+  }
+
+  .details-btn:hover {
+    background-color: #e1eefd;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 136, 204, 0.2);
+  }
+
+  .details-btn:active {
+    transform: translateY(0);
+  }
+
+  .details-btn svg {
+    margin-right: 6px;
+    stroke-width: 2.5px;
+  }
+
+  .add-to-cart-button.compact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    background: linear-gradient(135deg, #0088cc, #00a3cc);
+    color: white;
+    border: none;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.25);
+  }
+
+  .add-to-cart-button.compact:hover {
+    background: linear-gradient(135deg, #0079b6, #0088cc);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 136, 204, 0.3);
+  }
+
+  .add-to-cart-button.compact:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 136, 204, 0.3);
+  }
+
+  .add-to-cart-button.compact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.6s ease;
+  }
+
+  .add-to-cart-button.compact:hover::before {
+    left: 100%;
+  }
+
+  .add-to-cart-button.compact svg {
+    margin-right: 6px;
+    stroke-width: 2.5px;
+  }
+
+  /* Animation améliorée pour l'ajout au panier */
+  .success-animation {
+    animation: addToCartPulse 1.2s ease forwards;
+  }
+
+  @keyframes addToCartPulse {
+    0% {
+      transform: scale(1);
+      background: linear-gradient(135deg, #0088cc, #00a3cc);
+    }
+    30% {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #28a745, #20c997);
+      box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+    }
+    60% {
+      transform: scale(1.02);
+      background: linear-gradient(135deg, #28a745, #20c997);
+      box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+    }
+    100% {
+      transform: scale(1);
+      background: linear-gradient(135deg, #0088cc, #00a3cc);
+    }
+  }
+
+  /* Styles améliorés pour le conteneur des médicaments */
+  .profile-medications {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Style du dialogue de connexion */
+  .login-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .login-dialog {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    position: relative;
+    animation: zoomIn 0.4s ease;
+  }
+
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .close-dialog {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+
+  .close-dialog:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+
+  .dialog-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    color: #007bff;
+  }
+
+  .dialog-content {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .dialog-content h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 20px;
+  }
+
+  .dialog-content p {
+    color: #666;
+    margin: 0;
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .btn-login, .btn-register {
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    min-width: 120px;
+  }
+
+  .btn-login {
+    background: linear-gradient(135deg, #0088cc, #00a3cc);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3);
+  }
+
+  .btn-login:hover {
+    background: linear-gradient(135deg, #0079b6, #0088cc);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 136, 204, 0.4);
+  }
+
+  .btn-register {
+    background-color: white;
+    color: #0088cc;
+    border: 2px solid #0088cc;
+  }
+
+  .btn-register:hover {
+    background-color: #f0f7ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.15);
+  }
+
+  /* Notifications */
+  .cart-notification {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    max-width: 380px;
+    z-index: 1001;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    border-left: 4px solid transparent;
+  }
+
+  .cart-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .cart-notification.success {
+    border-left-color: #28a745;
+  }
+
+  .cart-notification.error {
+    border-left-color: #dc3545;
+  }
+
+  .cart-notification-content {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .cart-notification svg {
+    margin-right: 15px;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+  }
+
+  .cart-notification-title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .cart-notification-detail {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+  }
