@@ -4,7 +4,8 @@ import "../styles/PractitionerProfile.css";
 import authService from "../services/authService";
 import cartService from "../services/cartService";
 import apiService from "../services/apiService";
-import MedicationCard from "../components/MedicationCard";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaBriefcase } from "react-icons/fa";
+
 
 const PractitionerProfile = () => {
   const { id } = useParams();
@@ -17,7 +18,9 @@ const PractitionerProfile = () => {
     const fetchPractitioner = async () => {
       try {
         setLoading(true);
-        const response = await apiService.get(`http://localhost:3006/api/practitioners/${id}`);
+        const response = await apiService.get(
+          `http://localhost:3006/api/practitioners/${id}`
+        );
         setPractitioner(response.data);
         setLoading(false);
       } catch (err) {
@@ -114,21 +117,22 @@ const PractitionerProfile = () => {
     <div className="practitioner-profile">
       <div className="profile-header">
         <div className="profile-avatar-container">
-        <div className="profile-avatar">
-  {practitioner.name && practitioner.name.split(' ')[1]?.charAt(0)}
-</div>
-
+          <div className="profile-avatar">
+            {practitioner.name && practitioner.name.split(" ")[1]?.charAt(0)}
+          </div>
         </div>
         <div className="profile-info">
           <h1 className="profile-name">{practitioner.name}</h1>
           <p className="profile-title">{practitioner.specialty}</p>
-          <p className="profile-description">{practitioner.description}</p>
-          <span className="profile-specialty">{practitioner.specialty}</span>
+  
+          <div className="profile-detail"><FaEnvelope /> <span>{practitioner.email}</span></div>
+          <div className="profile-detail"><FaPhone /> <span>{practitioner.phone}</span></div>
+          <div className="profile-detail"><FaMapMarkerAlt /> <span>{practitioner.location}</span></div>
+          <div className="profile-detail"><FaBriefcase /> <span>{practitioner.experience} ans d'expérience</span></div>
         </div>
-      </div>        
+      </div>
     </div>
   );
-  
 };
 
 export default PractitionerProfile;

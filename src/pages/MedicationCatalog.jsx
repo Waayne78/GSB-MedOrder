@@ -140,17 +140,14 @@ const MedicationCatalog = () => {
         quantity: 1,
       };
 
-      // Ajouter au panier via le service
       cartService.addToCart(itemToAdd);
 
-      // Animation du bouton
       const button = event.currentTarget;
       button.classList.add("pulse-animation");
       setTimeout(() => {
         button.classList.remove("pulse-animation");
       }, 800);
 
-      // Créer et afficher une notification de succès
       const notification = document.createElement("div");
       notification.className = "notification notification-success";
       notification.innerHTML = `
@@ -175,7 +172,6 @@ const MedicationCatalog = () => {
     } catch (error) {
       console.error("Erreur lors de l'ajout au panier:", error);
 
-      // Notification d'erreur
       const notification = document.createElement("div");
       notification.className = "notification notification-error";
       notification.innerHTML = `
