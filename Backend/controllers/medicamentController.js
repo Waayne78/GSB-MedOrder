@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// Créer un médicament
 exports.createMedicament = async (req, res) => {
   const { nom, description, fabricant, prix_unitaire, date_expiration } = req.body;
   try {
@@ -14,7 +13,6 @@ exports.createMedicament = async (req, res) => {
   }
 };
 
-// Obtenir tous les médicaments
 exports.getMedicaments = async (req, res) => {
   try {
     const [rows] = await db.execute('SELECT * FROM Medicaments');
@@ -24,7 +22,6 @@ exports.getMedicaments = async (req, res) => {
   }
 };
 
-// Obtenir un médicament par ID
 exports.getMedicamentById = async (req, res) => {
   const { id } = req.params;
   try {

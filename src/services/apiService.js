@@ -1,8 +1,7 @@
 import axios from 'axios';
 import authService from './authService';
 
-// Définir l'URL de base de l'API
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'http://localhost:3006/api';
 
 // Création d'une instance Axios avec une configuration de base
 const apiClient = axios.create({

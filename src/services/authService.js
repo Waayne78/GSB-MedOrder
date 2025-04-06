@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/auth';
+const API_URL = 'http://localhost:3006/api/auth';
 const TOKEN_KEY = 'auth_token';
 const USER_KEY = 'auth_user';
 
@@ -67,7 +67,7 @@ const authService = {
   
   // Connexion utilisateur
   login(email, password) {
-    return fetch('http://localhost:3000/api/users/login', {
+    return fetch('http://localhost:3006/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ const authService = {
   
   // Inscription utilisateur
   register(email, password, firstname, lastname) {
-    return fetch('http://localhost:3000/api/users/register', {
+    return fetch('http://localhost:3006/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

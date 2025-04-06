@@ -15,11 +15,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Gestion des erreurs de connexion à la base de données
 app.use((req, res, next) => {
   try {
     next();
@@ -29,18 +27,14 @@ app.use((req, res, next) => {
   }
 });
 
-// Route de test pour vérifier que le serveur fonctionne
 app.get('/', (req, res) => {
   res.json({ message: 'API GSB MedOrder fonctionnelle' });
 });
 
-// Import des routes de manière sécurisée
 try {
-  // Déclaration des variables de routes (une seule fois)
   const medicationRoutes = require('./routes/medicationRoutes');
   const practitionerRoutes = require('./routes/practitionerRoutes');
   
-  // Utilisation des routes
   app.use('/api', medicationRoutes);
   app.use('/api', practitionerRoutes);
   
@@ -49,24 +43,19 @@ try {
   console.error('Erreur lors du chargement des routes:', error);
 }
 
-// Servir les images statiques
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Gestion des erreurs
 app.use((err, req, res, next) => {
   console.error('Erreur serveur:', err.stack);
   res.status(500).json({ message: 'Une erreur est survenue !' });
 });
 
-// Routes API
 app.use('/api/auth', authRoutes);
 
-// Démarrer le serveur
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
 
-// Gestion des erreurs non capturées pour éviter les crashs
 process.on('uncaughtException', (err) => {
   console.error('Erreur non capturée:', err);
 });

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import cartService from '../services/cartService';
+import cartService from "../services/cartService";
 import "../styles/Cart.css";
-import authService from '../services/authService';
+import authService from "../services/authService";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -17,12 +17,11 @@ const Cart = () => {
     };
 
     loadCart();
-    
-    // Mettre à jour quand le panier change
-    window.addEventListener('cart-updated', loadCart);
-    
+
+    window.addEventListener("cart-updated", loadCart);
+
     return () => {
-      window.removeEventListener('cart-updated', loadCart);
+      window.removeEventListener("cart-updated", loadCart);
     };
   }, []);
 
@@ -38,8 +37,8 @@ const Cart = () => {
 
   const handleClearCart = () => {
     // Créer une boîte de dialogue de confirmation personnalisée
-    const confirmDialog = document.createElement('div');
-    confirmDialog.className = 'cart-confirm-dialog';
+    const confirmDialog = document.createElement("div");
+    confirmDialog.className = "cart-confirm-dialog";
     confirmDialog.innerHTML = `
       <div class="confirm-dialog-content">
         <div class="confirm-dialog-header">
@@ -56,48 +55,48 @@ const Cart = () => {
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(confirmDialog);
-    
+
     // Animation d'apparition
     setTimeout(() => {
-      confirmDialog.classList.add('show');
+      confirmDialog.classList.add("show");
     }, 10);
-    
+
     // Gestionnaires d'événements pour les boutons
-    const closeButton = confirmDialog.querySelector('.close-dialog');
-    const cancelButton = confirmDialog.querySelector('.btn-cancel');
-    const confirmButton = confirmDialog.querySelector('.btn-confirm');
-    
+    const closeButton = confirmDialog.querySelector(".close-dialog");
+    const cancelButton = confirmDialog.querySelector(".btn-cancel");
+    const confirmButton = confirmDialog.querySelector(".btn-confirm");
+
     const closeDialog = () => {
-      confirmDialog.classList.remove('show');
+      confirmDialog.classList.remove("show");
       setTimeout(() => {
         document.body.removeChild(confirmDialog);
       }, 300);
     };
-    
-    closeButton.addEventListener('click', closeDialog);
-    cancelButton.addEventListener('click', closeDialog);
-    
-    confirmButton.addEventListener('click', () => {
+
+    closeButton.addEventListener("click", closeDialog);
+    cancelButton.addEventListener("click", closeDialog);
+
+    confirmButton.addEventListener("click", () => {
       // Animation de suppression des éléments
-      const cartItemElements = document.querySelectorAll('.cart-item');
-      
+      const cartItemElements = document.querySelectorAll(".cart-item");
+
       // Ajouter une classe d'animation à chaque élément avec un délai croissant
       cartItemElements.forEach((item, index) => {
         setTimeout(() => {
-          item.classList.add('item-removing');
+          item.classList.add("item-removing");
         }, index * 100);
       });
-      
+
       // Attendre que les animations soient terminées avant de vider le panier
       setTimeout(() => {
         cartService.clearCart();
         closeDialog();
-        
+
         // Afficher une notification de confirmation
-        const notification = document.createElement('div');
-        notification.className = 'cart-notification';
+        const notification = document.createElement("div");
+        notification.className = "cart-notification";
         notification.innerHTML = `
           <div class="notification-content">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -106,15 +105,15 @@ const Cart = () => {
             <span>Votre panier a été vidé</span>
           </div>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
-          notification.classList.add('show');
+          notification.classList.add("show");
         }, 10);
-        
+
         setTimeout(() => {
-          notification.classList.remove('show');
+          notification.classList.remove("show");
           setTimeout(() => {
             document.body.removeChild(notification);
           }, 300);
@@ -142,9 +141,9 @@ const Cart = () => {
                 <div className="item-image">
                   <img
                     src={
-                      item.image && item.image.startsWith('http')
+                      item.image && item.image.startsWith("http")
                         ? item.image
-                        : `http://localhost:3000/images/${item.image}`
+                        : `http://localhost:3006/images/${item.image}`
                     }
                     alt={item.name}
                     onError={(e) => {
@@ -155,20 +154,26 @@ const Cart = () => {
                 </div>
                 <div className="item-details">
                   <h3>{item.name}</h3>
-                  <p className="item-price">{parseFloat(item.price).toFixed(2)} €</p>
+                  <p className="item-price">
+                    {parseFloat(item.price).toFixed(2)} €
+                  </p>
                   <p className="item-category">{item.category}</p>
                 </div>
                 <div className="item-actions">
                   <div className="quantity-control">
                     <button
-                      onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                      onClick={() =>
+                        handleUpdateQuantity(item.id, item.quantity - 1)
+                      }
                       disabled={item.quantity <= 1}
                     >
                       -
                     </button>
                     <span>{item.quantity}</span>
                     <button
-                      onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                      onClick={() =>
+                        handleUpdateQuantity(item.id, item.quantity + 1)
+                      }
                     >
                       +
                     </button>
@@ -205,4 +210,4 @@ const Cart = () => {
   );
 };
 
-export default Cart; 
+export default Cart;

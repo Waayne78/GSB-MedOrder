@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpg";
-import authService from '../services/authService';
-import cartService from '../services/cartService';
+import authService from "../services/authService";
+import cartService from "../services/cartService";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 import { clearCart } from "../store/cartSlice";
@@ -16,13 +16,13 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const [cartItems, setCartItems] = useState(0);
 
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart);
-  const authUser = useSelector(state => state.auth.user);
-  
+  const cart = useSelector((state) => state.cart);
+  const authUser = useSelector((state) => state.auth.user);
+
   console.log("État d'authentification:", isLoggedIn);
   console.log("User dans le store:", user);
 
@@ -31,7 +31,7 @@ const Navbar = () => {
     try {
       const authenticated = authService.isAuthenticated();
       setIsLoggedIn(authenticated);
-      
+
       if (authenticated) {
         setUser(authService.getCurrentUser());
         updateCartCount();
@@ -64,20 +64,20 @@ const Navbar = () => {
     try {
       // Initialiser le service d'authentification
       authService.initialize();
-      
+
       // Vérifier l'authentification
       checkAuth();
-      
+
       // Écouter les changements dans le localStorage
       const handleStorageChange = () => {
         checkAuth();
       };
-      
-      window.addEventListener('storage', handleStorageChange);
-      
+
+      window.addEventListener("storage", handleStorageChange);
+
       // Nettoyer l'écouteur d'événements
       return () => {
-        window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener("storage", handleStorageChange);
       };
     } catch (error) {
       console.error("Erreur dans useEffect du Navbar:", error);
@@ -87,7 +87,7 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
+
   const handleLogout = () => {
     try {
       authService.logout();
@@ -133,12 +133,16 @@ const Navbar = () => {
   };
 
   return (
-    <header className={`navbar ${isScrolled ? "navbar-scrolled" : ""} ${isLoggedIn ? "user-authenticated" : ""}`}>
+    <header
+      className={`navbar ${isScrolled ? "navbar-scrolled" : ""} ${
+        isLoggedIn ? "user-authenticated" : ""
+      }`}
+    >
       <div className="navbar-container">
         <div className="navbar-logo">
           <Link to="/">
             <img src={Logo} alt="GSB MedOrder" />
-            <span>GSB MedOrder</span>
+            <span>MedOrder</span>
           </Link>
         </div>
 
@@ -197,24 +201,63 @@ const Navbar = () => {
                   <div className="avatar-circle">
                     <span>{getUserInitials()}</span>
                   </div>
-                  <span className="user-name">Bonjour, {user ? user.firstName ? user.firstName : (user && user.email ? user.email.split('@')[0] : 'utilisateur') : 'utilisateur'}</span>
+                  <span className="user-name">
+                    Bonjour,{" "}
+                    {user
+                      ? user.firstName
+                        ? user.firstName
+                        : user && user.email
+                        ? user.email.split("@")[0]
+                        : "utilisateur"
+                      : "utilisateur"}
+                  </span>
                 </Link>
                 <div className="user-dropdown">
                   <Link to="/profil" className="dropdown-item">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="currentColor"/>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
+                        fill="currentColor"
+                      />
                     </svg>
                     Mon profil
                   </Link>
                   <Link to="/mes-commandes" className="dropdown-item">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z" fill="currentColor"/>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"
+                        fill="currentColor"
+                      />
                     </svg>
                     Mes commandes
                   </Link>
-                  <button onClick={handleLogout} className="dropdown-item logout">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.58L17 17L22 12L17 7ZM4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z" fill="currentColor"/>
+                  <button
+                    onClick={handleLogout}
+                    className="dropdown-item logout"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17 7L15.59 8.41L18.17 11H8V13H18.17L15.59 15.58L17 17L22 12L17 7ZM4 5H12V3H4C2.9 3 2 3.9 2 5V19C2 20.1 2.9 21 4 21H12V19H4V5Z"
+                        fill="currentColor"
+                      />
                     </svg>
                     Déconnexion
                   </button>

@@ -27,7 +27,6 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   useEffect(() => {
-    // Initialiser le service d'authentification au chargement de l'application
     authService.initialize();
   }, []);
 

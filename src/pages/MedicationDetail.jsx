@@ -18,7 +18,7 @@ import MedicationCard from "../components/MedicationCard";
 import cartService from '../services/cartService';
 import authService from '../services/authService';
 
-const IMAGE_BASE_URL = 'http://localhost:3000/images/';
+const IMAGE_BASE_URL = 'http://localhost:3006/images/';
 
 const MedicationDetail = () => {
   const { id } = useParams();
