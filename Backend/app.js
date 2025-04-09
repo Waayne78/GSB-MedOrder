@@ -13,10 +13,11 @@ const authRoutes = require('./routes/authRoutes');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3006;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 
 app.use((req, res, next) => {
   try {
@@ -51,6 +52,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);

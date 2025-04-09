@@ -145,9 +145,15 @@
 
 /* Animation de pulsation */
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.98); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .add-to-cart-btn.pulse-animation {
@@ -206,8 +212,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .login-message-content {
@@ -223,8 +233,14 @@
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .login-message-content svg {
@@ -253,7 +269,8 @@
   gap: 10px;
 }
 
-.btn-login, .btn-register {
+.btn-login,
+.btn-register {
   padding: 8px 20px;
   border-radius: 4px;
   font-weight: 500;
@@ -385,9 +402,15 @@
 
 /* Animation lorsque le bouton est cliqué */
 @keyframes buttonSuccess {
-  0% { background-color: #007bff; }
-  50% { background-color: #28a745; }
-  100% { background-color: #007bff; }
+  0% {
+    background-color: #007bff;
+  }
+  50% {
+    background-color: #28a745;
+  }
+  100% {
+    background-color: #007bff;
+  }
 }
 
 .medication-detail-container .add-to-cart-button.success-animation {
@@ -400,9 +423,9 @@
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .medication-detail-container .quantity-controls {
     margin-bottom: 10px;
     align-self: flex-start;
   }
-} 
+}

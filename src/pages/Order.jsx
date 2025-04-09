@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { authService } from "../services/authService";
+import authService from "../services/authService";
+import orderService from "../services/orderService";
 import "../styles/Orders.css";
 
 const Orders = () => {
@@ -12,23 +13,29 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        // Si vous avez un service pour récupérer les commandes, utilisez-le ici
-        // Par exemple : const response = await orderService.getUserOrders();
-        
-        // Pour l'instant, simulons des données vides
-        const mockOrders = [];
-        
-        setOrders(mockOrders);
+
+        // Appel à l'API pour récupérer les commandes de l'utilisateur
+        const userOrders = await orderService.getUserOrders(user.id);
+
+        setOrders(userOrders);
         setLoading(false);
       } catch (err) {
         console.error("Erreur lors du chargement des commandes:", err);
-        setError("Impossible de charger vos commandes. Veuillez réessayer plus tard.");
+        setError(
+          err.response?.data?.message ||
+            "Impossible de charger vos commandes. Veuillez réessayer plus tard."
+        );
         setLoading(false);
       }
     };
 
-    fetchOrders();
-  }, []);
+    if (user) {
+      fetchOrders();
+    } else {
+      setError("Vous devez être connecté pour voir vos commandes.");
+      setLoading(false);
+    }
+  }, [user]);
 
   if (loading) {
     return (
@@ -53,7 +60,7 @@ const Orders = () => {
   return (
     <div className="orders-container">
       <h1>Mes commandes</h1>
-      
+
       {orders.length === 0 ? (
         <div className="no-orders">
           <p>Vous n'avez pas encore passé de commande.</p>
@@ -65,7 +72,10 @@ const Orders = () => {
         <div className="orders-list">
           {orders.map((order) => (
             <div key={order.id} className="order-card">
-              {/* Affichage des détails de la commande */}
+              <h3>Commande #{order.id}</h3>
+              <p>Date : {new Date(order.created_at).toLocaleDateString()}</p>
+              <p>Montant total : {order.total_price} €</p>
+              <p>Statut : {order.status}</p>
             </div>
           ))}
         </div>

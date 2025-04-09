@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import cartService from "../services/cartService";
 import "../styles/Cart.css";
@@ -7,23 +7,41 @@ import authService from "../services/authService";
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const user = authService.getCurrentUser();
 
   useEffect(() => {
-    // Charger les articles du panier
-    const loadCart = () => {
-      const items = cartService.getCartItems();
-      setCartItems(items);
-      setTotalPrice(cartService.getTotalPrice());
+    const loadCart = async () => {
+      try {
+        setLoading(true);
+        const items = await cartService.getCartItems(user.id);
+        setCartItems(items);
+        setTotalPrice(cartService.getTotalPrice());
+        setLoading(false);
+      } catch (err) {
+        console.error("Erreur lors du chargement du panier :", err);
+        setError(
+          err.response?.data?.message ||
+            "Impossible de charger le panier. Veuillez réessayer plus tard."
+        );
+        setLoading(false);
+      }
     };
 
-    loadCart();
+    if (user) {
+      loadCart();
+    } else {
+      setError("Vous devez être connecté pour voir votre panier.");
+      setLoading(false);
+    }
 
     window.addEventListener("cart-updated", loadCart);
 
     return () => {
       window.removeEventListener("cart-updated", loadCart);
     };
-  }, []);
+  }, [user]);
 
   const handleUpdateQuantity = (id, quantity) => {
     if (quantity > 0) {
@@ -121,6 +139,14 @@ const Cart = () => {
       }, cartItemElements.length * 100 + 300);
     });
   };
+
+  if (loading) {
+    return <p>Chargement du panier...</p>;
+  }
+
+  if (error) {
+    return <p className="error-message">{error}</p>;
+  }
 
   return (
     <div className="cart-page">

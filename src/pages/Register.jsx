@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
-import authService from '../services/authService';
+import authService from "../services/authService";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ const Register = () => {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,26 +23,40 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    
+
     // Validation basique
-    if (formData.password !== formData.confirmPassword) {
-      setError("Les mots de passe ne correspondent pas");
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+      setError("Tous les champs sont requis.");
       return;
     }
-    
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       // Appel à l'API pour l'inscription
-      await authService.register(formData);
-      
+      await authService.register({
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+      });
+
       // Redirection vers la page de connexion
-      navigate("/login", { 
-        state: { message: "Inscription réussie. Vous pouvez maintenant vous connecter." } 
+      navigate("/login", {
+        state: {
+          message: "Inscription réussie. Vous pouvez maintenant vous connecter.",
+        },
       });
     } catch (err) {
-      console.error("Erreur d'inscription:", err);
-      setError(err.response?.data?.message || "Échec de l'inscription. Veuillez réessayer.");
+      console.error("Erreur d'inscription :", err);
+      setError(
+        err.response?.data?.message || "Échec de l'inscription. Veuillez réessayer."
+      );
     } finally {
       setLoading(false);
     }
@@ -53,9 +67,9 @@ const Register = () => {
       <div className="auth-container">
         <div className="auth-card">
           <h2>Créer un compte</h2>
-          
+
           {error && <div className="auth-error">{error}</div>}
-          
+
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
@@ -70,7 +84,7 @@ const Register = () => {
                   placeholder="Votre prénom"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="lastName">Nom</label>
                 <input
@@ -84,7 +98,7 @@ const Register = () => {
                 />
               </div>
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -97,7 +111,7 @@ const Register = () => {
                 placeholder="Votre email"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>
               <input
@@ -110,7 +124,7 @@ const Register = () => {
                 placeholder="Créez un mot de passe"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
               <input
@@ -123,29 +137,25 @@ const Register = () => {
                 placeholder="Confirmez votre mot de passe"
               />
             </div>
-            
+
             <div className="form-options">
               <div className="remember-me">
                 <input type="checkbox" id="terms" required />
                 <label htmlFor="terms">
-                  J'accepte les <Link to="/terms">conditions d'utilisation</Link>
+                  J'accepte les{" "}
+                  <Link to="/terms">conditions d'utilisation</Link>
                 </label>
               </div>
             </div>
-            
-            <button 
-              type="submit" 
-              className="auth-button" 
-              disabled={loading}
-            >
+
+            <button type="submit" className="auth-button" disabled={loading}>
               {loading ? "Création en cours..." : "Créer un compte"}
             </button>
           </form>
-          
+
           <div className="auth-footer">
             <p>
-              Vous avez déjà un compte ?{" "}
-              <Link to="/login">Se connecter</Link>
+              Vous avez déjà un compte ? <Link to="/login">Se connecter</Link>
             </p>
           </div>
         </div>

@@ -37,3 +37,23 @@ exports.getCommandeById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getUserOrders = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const [orders] = await db.execute(
+      "SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC",
+      [userId]
+    );
+
+    if (orders.length === 0) {
+      return res.status(404).json({ message: "Aucune commande trouvée pour cet utilisateur." });
+    }
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des commandes :", error);
+    res.status(500).json({ message: "Erreur serveur lors de la récupération des commandes." });
+  }
+};

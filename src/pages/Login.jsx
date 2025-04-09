@@ -1,38 +1,38 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
-import '../styles/Login.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import authService from "../services/authService";
+import "../styles/Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Réinitialiser les erreurs
-    setError('');
-    
+    setError("");
+
     // Validation simple
     if (!email || !password) {
-      setError('Veuillez remplir tous les champs');
+      setError("Veuillez remplir tous les champs");
       return;
     }
-    
+
     try {
       setLoading(true);
-      
+
       // Appel au service d'authentification pour la connexion
       await authService.login(email, password);
-      
+
       // Redirection vers la page d'accueil après la connexion réussie
-      navigate('/');
+      navigate("/");
     } catch (err) {
-      console.error('Erreur de connexion:', err);
-      setError(err.message || 'Une erreur est survenue lors de la connexion');
+      console.error("Erreur de connexion:", err);
+      setError(err || "Une erreur est survenue lors de la connexion");
     } finally {
       setLoading(false);
     }
@@ -45,9 +45,9 @@ const Login = () => {
           <h2>Connexion</h2>
           <p>Bienvenue sur GSB MedOrder</p>
         </div>
-        
+
         {error && <div className="error-message">{error}</div>}
-        
+
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -60,7 +60,7 @@ const Login = () => {
               required
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password">Mot de passe</label>
             <input
@@ -72,16 +72,12 @@ const Login = () => {
               required
             />
           </div>
-          
-          <button 
-            type="submit" 
-            className="login-button"
-            disabled={loading}
-          >
-            {loading ? 'Connexion en cours...' : 'Se connecter'}
+
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? "Connexion en cours..." : "Se connecter"}
           </button>
         </form>
-        
+
         <div className="login-footer">
           <p>
             Vous n'avez pas de compte ? <Link to="/register">S'inscrire</Link>

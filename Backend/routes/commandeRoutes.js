@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const orderController = require("../controllers/orderController");
 
 // Obtenir toutes les commandes
 router.get('/commandes', async (req, res) => {
@@ -37,5 +38,8 @@ router.put('/commandes/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// Route pour récupérer les commandes d'un utilisateur
+router.get("/user/:userId", orderController.getUserOrders);
 
 module.exports = router;

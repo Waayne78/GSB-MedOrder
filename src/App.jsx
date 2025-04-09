@@ -13,6 +13,7 @@ import UserProfile from './pages/UserProfile';
 import OrderHistory from './pages/OrderHistory';
 import './styles/global.css';
 import authService from './services/authService';
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // Composant ProtectedRoute pour protéger les routes qui nécessitent une authentification
 const ProtectedRoute = ({ children }) => {
@@ -27,37 +28,42 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   useEffect(() => {
-    authService.initialize();
+    const isInitialized = authService.initialize();
+    if (!isInitialized) {
+      console.warn("L'utilisateur n'est pas authentifié.");
+    }
   }, []);
 
   return (
     <Router>
       <div className="App">
-        <Navbar />
-        <div className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalogue" element={<MedicationCatalog />} />
-            <Route path="/medication/:id" element={<MedicationDetail />} />
-            <Route path="/panier" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/practitioner/:id" element={<PractitionerProfile />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Routes protégées qui nécessitent une authentification */}
-            <Route path="/profil" element={
-              <ProtectedRoute>
-                <UserProfile />
-              </ProtectedRoute>
-            } />
-            <Route path="/mes-commandes" element={
-              <ProtectedRoute>
-                <OrderHistory />
-              </ProtectedRoute>
-            } />
-          </Routes>
-        </div>
+        <ErrorBoundary>
+          <Navbar />
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/catalogue" element={<MedicationCatalog />} />
+              <Route path="/medication/:id" element={<MedicationDetail />} />
+              <Route path="/panier" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/practitioner/:id" element={<PractitionerProfile />} />
+              <Route path="/contact" element={<Contact />} />
+              
+              {/* Routes protégées qui nécessitent une authentification */}
+              <Route path="/profil" element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              } />
+              <Route path="/mes-commandes" element={
+                <ProtectedRoute>
+                  <OrderHistory />
+                </ProtectedRoute>
+              } />
+            </Routes>
+          </div>
+        </ErrorBoundary>
       </div>
     </Router>
   );
