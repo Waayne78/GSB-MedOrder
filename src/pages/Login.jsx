@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import authService from "../services/authService";
 import "../styles/Login.css";
 
@@ -9,27 +10,17 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Réinitialiser les erreurs
-    setError("");
-
-    // Validation simple
-    if (!email || !password) {
-      setError("Veuillez remplir tous les champs");
-      return;
-    }
-
     try {
       setLoading(true);
-
-      // Appel au service d'authentification pour la connexion
-      await authService.login(email, password);
-
-      // Redirection vers la page d'accueil après la connexion réussie
-      navigate("/");
+      const user = await authService.login(email, password);
+      dispatch(login({ user })); // Dispatch l'action Redux
+      localStorage.setItem('isAuthenticated', 'true'); // Mettre à jour manuellement
+      navigate('/'); // Redirection
     } catch (err) {
       console.error("Erreur de connexion:", err);
       setError(err || "Une erreur est survenue lors de la connexion");

@@ -1,174 +1,66 @@
-import authService from "./authService";
-import axios from "axios";
+const CART_KEY = "cart";
 
-const CART_STORAGE_KEY = "gsb_medorder_cart";
-const API_URL = "http://localhost:3006/api/cart";
-
-// Définition du service avec toutes les méthodes nécessaires
-const cartService = {
-  // Obtenir le panier
-  getCart() {
-    try {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      return cart;
-    } catch (error) {
-      console.error("Erreur lors de la récupération du panier:", error);
-      return [];
-    }
-  },
-
-  // Ajouter un article au panier
-  addToCart(item) {
-    try {
-      const cart = this.getCart();
-
-      // Vérifier si l'article existe déjà dans le panier
-      const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-
-      if (existingItem) {
-        // Mettre à jour la quantité si l'article existe déjà
-        existingItem.quantity += item.quantity || 1;
-      } else {
-        // Ajouter le nouvel article
-        cart.push({
-          ...item,
-          quantity: item.quantity || 1,
-        });
-      }
-
-      // Enregistrer le panier mis à jour
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      // Émettre un événement pour informer les autres composants
-      window.dispatchEvent(new Event("storage"));
-
-      return cart;
-    } catch (error) {
-      console.error("Erreur lors de l'ajout au panier:", error);
-      return [];
-    }
-  },
-
-  // Mettre à jour la quantité d'un article
-  updateQuantity(itemId, quantity) {
-    try {
-      const cart = this.getCart();
-
-      // Trouver l'article à mettre à jour
-      const itemToUpdate = cart.find((item) => item.id === itemId);
-
-      if (itemToUpdate) {
-        // Mettre à jour la quantité
-        itemToUpdate.quantity = quantity;
-
-        // Filtrer les articles avec une quantité <= 0
-        const updatedCart = cart.filter((item) => item.quantity > 0);
-
-        // Enregistrer le panier mis à jour
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-        // Émettre un événement pour informer les autres composants
-        window.dispatchEvent(new Event("storage"));
-
-        return updatedCart;
-      }
-
-      return cart;
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour de la quantité:", error);
-      return [];
-    }
-  },
-
-  // Supprimer un article du panier
-  removeFromCart(itemId) {
-    try {
-      const cart = this.getCart();
-
-      // Filtrer pour supprimer l'article
-      const updatedCart = cart.filter((item) => item.id !== itemId);
-
-      // Enregistrer le panier mis à jour
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-      // Émettre un événement pour informer les autres composants
-      window.dispatchEvent(new Event("storage"));
-
-      return updatedCart;
-    } catch (error) {
-      console.error("Erreur lors de la suppression d'un article:", error);
-      return [];
-    }
-  },
-
-  // Vider le panier
-  clearCart() {
-    try {
-      // Supprimer le panier du localStorage
-      localStorage.removeItem("cart");
-
-      // Émettre un événement pour informer les autres composants
-      window.dispatchEvent(new Event("storage"));
-
-      return [];
-    } catch (error) {
-      console.error("Erreur lors de la suppression du panier:", error);
-      return [];
-    }
-  },
-
-  // Calculer le total du panier
-  getCartTotal() {
-    try {
-      const cart = this.getCart();
-
-      // Calculer le total
-      const total = cart.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
-      }, 0);
-
-      return parseFloat(total.toFixed(2));
-    } catch (error) {
-      console.error("Erreur lors du calcul du total du panier:", error);
-      return 0;
-    }
-  },
-
-  // Obtenir le nombre total d'articles dans le panier
-  getTotalItems() {
-    try {
-      const cart = this.getCart();
-
-      // Calculer le nombre total d'articles
-      const totalItems = cart.reduce((acc, item) => {
-        return acc + item.quantity;
-      }, 0);
-
-      return totalItems;
-    } catch (error) {
-      console.error("Erreur lors du calcul du nombre d'articles:", error);
-      return 0;
-    }
-  },
-
-  // Récupérer les articles du panier
-  async getCartItems(userId) {
-    const response = await axios.get(`${API_URL}/user/${userId}`);
-    return response.data;
-  },
-
-  // Ajouter un article au panier
-  async addToCart(userId, item) {
-    const response = await axios.post(`${API_URL}/user/${userId}`, item);
-    return response.data;
-  },
-
-  // Supprimer un article du panier
-  async removeFromCart(userId, itemId) {
-    const response = await axios.delete(`${API_URL}/user/${userId}/item/${itemId}`);
-    return response.data;
-  },
+// Récupérer les articles du panier
+const getCartItems = () => {
+  const cart = localStorage.getItem(CART_KEY);
+  return cart ? JSON.parse(cart) : [];
 };
 
-// Assurez-vous d'exporter par défaut le service (correction de l'erreur)
-export default cartService;
+// Ajouter un article au panier
+const addToCart = (item) => {
+  const cart = getCartItems();
+  const existingItemIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
+
+  if (existingItemIndex !== -1) {
+    // Si l'article existe déjà, mettre à jour la quantité
+    cart[existingItemIndex].quantity += item.quantity;
+  } else {
+    // Ajouter un nouvel article
+    cart.push(item);
+  }
+
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+};
+
+// Supprimer un article du panier
+const removeFromCart = (itemId) => {
+  const cart = getCartItems();
+  const updatedCart = cart.filter((item) => item.id !== itemId);
+  localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
+};
+
+// Mettre à jour la quantité d'un article
+const updateCartItemQuantity = (itemId, quantity) => {
+  const cart = getCartItems();
+  const updatedCart = cart.map((item) =>
+    item.id === itemId ? { ...item, quantity } : item
+  );
+  localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
+};
+
+// Vider le panier
+const clearCart = () => {
+  localStorage.removeItem(CART_KEY);
+};
+
+// Obtenir le nombre total d'articles
+const getTotalItems = () => {
+  const cart = getCartItems();
+  return cart.reduce((total, item) => total + item.quantity, 0);
+};
+
+// Obtenir le prix total du panier
+const getTotalPrice = () => {
+  const cart = getCartItems();
+  return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+};
+
+export default {
+  getCartItems,
+  addToCart,
+  removeFromCart,
+  updateCartItemQuantity,
+  clearCart,
+  getTotalItems,
+  getTotalPrice,
+};

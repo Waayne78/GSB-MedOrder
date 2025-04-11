@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import "../styles/UserProfile.css";
+import authService from "../services/authService"; // Ajoutez cette ligne
 
 const UserProfile = () => {
   const auth = useSelector(state => state.auth);
-  const { user, isAuthenticated } = auth;
+  const { user } = auth;
+  
+  // Vérification directe avec authService
+  const [isAuthenticated, setIsAuthenticated] = useState(authService.isAuthenticated());
   
   const [activeTab, setActiveTab] = useState("informations");
   const [orders, setOrders] = useState([]);
@@ -22,11 +26,25 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Vérifier si l'utilisateur est connecté et charger ses données
-    if (user) {
+    // Vérifier l'authentification au chargement
+    const checkAuth = () => {
+      const authStatus = authService.isAuthenticated();
+      setIsAuthenticated(authStatus);
+      
+      if (!authStatus) {
+        console.log("L'utilisateur n'est pas authentifié, redirection vers login");
+      } else {
+        console.log("Utilisateur authentifié:", user);
+      }
+    };
+    
+    checkAuth();
+    
+    // Si l'utilisateur est authentifié, charger les données
+    if (isAuthenticated && user) {
       setUserInfo({
-        firstName: user.firstName || "John",
-        lastName: user.lastName || "Doe",
+        firstName: user.firstname || user.firstName || "John",
+        lastName: user.lastname || user.lastName || "Doe",
         email: user.email || "john.doe@example.com",
         phone: user.phone || "+33 6 12 34 56 78",
         address: user.address || "123 Rue de la Santé",
@@ -63,9 +81,8 @@ const UserProfile = () => {
         setLoading(false);
       }, 800);
     }
-  }, [user]);
+  }, [user, isAuthenticated]);
 
-  // Rediriger vers la page de connexion si l'utilisateur n'est pas authentifié
   if (!isAuthenticated && !loading) {
     return <Navigate to="/login" replace />;
   }
@@ -501,4 +518,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile; 
+export default UserProfile;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
-const orderController = require("../controllers/orderController");
+const orderController = require("../controllers/commandeController");
 
 // Obtenir toutes les commandes
 router.get('/commandes', async (req, res) => {

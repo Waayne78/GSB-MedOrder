@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Récupérer les données d'authentification depuis localStorage
 const getAuthFromStorage = () => {
@@ -20,9 +20,21 @@ const getAuthFromStorage = () => {
   }
 };
 
+export const login = createAsyncThunk(
+  'auth/login',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const user = await authService.login(email, password);
+      return { user };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   user: null,
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem('isAuthenticated') === 'true',
   loading: false,
   error: null,
 };
@@ -62,7 +74,16 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.isAuthenticated = true;
+        state.loading = false;
+        state.error = null;
+      });
+  }
 });
 
 export const { loginStart, loginSuccess, loginFailure, logout, clearError } = authSlice.actions;
-export default authSlice.reducer; 
+export default authSlice.reducer;

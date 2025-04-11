@@ -10,10 +10,15 @@ import Logo from "../assets/logo.jpg";
 import "../styles/Navbar.css";
 
 const Navbar = () => {
+  // États existants
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+
+  // Nouvel état pour le menu utilisateur
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -202,10 +207,9 @@ const Navbar = () => {
                     <span>{getUserInitials()}</span>
                   </div>
                   <span className="user-name">
-                    Bonjour,{" "}
                     {user
-                      ? user.firstName
-                        ? user.firstName
+                      ? user.lastname || user.lastName
+                        ? user.lastname || user.lastName
                         : user && user.email
                         ? user.email.split("@")[0]
                         : "utilisateur"

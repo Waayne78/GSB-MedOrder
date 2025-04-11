@@ -81,10 +81,17 @@ const isAuthenticated = () => {
   if (!token) return false;
 
   try {
+    // Vérifier que le token est valide
     const tokenData = JSON.parse(atob(token.split(".")[1]));
-    return tokenData.exp * 1000 > Date.now(); // Vérifier si le token est expiré
+    const isValid = tokenData.exp * 1000 > Date.now(); // Vérifier si le token est expiré
+    
+    // Stocker l'état d'authentification pour une récupération facile
+    localStorage.setItem('isAuthenticated', isValid ? 'true' : 'false');
+    
+    return isValid;
   } catch (error) {
     console.error("Erreur lors de la vérification de l'authentification :", error);
+    localStorage.setItem('isAuthenticated', 'false');
     return false;
   }
 };

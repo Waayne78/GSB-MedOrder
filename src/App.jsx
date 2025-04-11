@@ -14,6 +14,7 @@ import OrderHistory from './pages/OrderHistory';
 import './styles/global.css';
 import authService from './services/authService';
 import ErrorBoundary from "./components/ErrorBoundary";
+import "./utils/fontAwesome";
 
 // Composant ProtectedRoute pour protéger les routes qui nécessitent une authentification
 const ProtectedRoute = ({ children }) => {
