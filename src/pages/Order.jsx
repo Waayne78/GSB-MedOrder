@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import authService from "../services/authService";
-import orderService from "../services/orderService";
+import orderService from "../services/commandeService";
 import "../styles/Orders.css";
 
 const Orders = () => {

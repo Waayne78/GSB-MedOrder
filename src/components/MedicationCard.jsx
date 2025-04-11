@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/MedicationCard.css';
-import logoImg from "../assets/logo.jpg"; // Import de l'image de placeholder
+import logoImg from "../assets/logo.jpg"; 
 import authService from '../services/authService';
 import cartService from '../services/cartService';
 

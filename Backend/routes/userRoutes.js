@@ -34,9 +34,6 @@ router.post("/login", async (req, res) => {
 
     const user = users[0];
 
-    // Vérifier le mot de passe
-    // Note: dans votre base de données, les mots de passe sont stockés sous format $2b$10$...
-    // Nous devons utiliser bcrypt.compare pour vérifier
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
@@ -44,7 +41,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Identifiants invalides" });
     }
 
-    // Générer un token JWT
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET || "your_jwt_secret",
@@ -53,7 +49,6 @@ router.post("/login", async (req, res) => {
 
     console.log("Connexion réussie pour:", email);
 
-    // Envoyer le token et les informations de l'utilisateur
     res.json({
       token,
       user: {
@@ -70,7 +65,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Route pour l'inscription
 router.post("/register", userController.createUser);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 import "../styles/Contact.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 const Contact = () => {
   return (
     <div className="contact-page">
