@@ -84,14 +84,17 @@ const isAuthenticated = () => {
     // Vérifier que le token est valide
     const tokenData = JSON.parse(atob(token.split(".")[1]));
     const isValid = tokenData.exp * 1000 > Date.now(); // Vérifier si le token est expiré
-    
+
     // Stocker l'état d'authentification pour une récupération facile
-    localStorage.setItem('isAuthenticated', isValid ? 'true' : 'false');
-    
+    localStorage.setItem("isAuthenticated", isValid ? "true" : "false");
+
     return isValid;
   } catch (error) {
-    console.error("Erreur lors de la vérification de l'authentification :", error);
-    localStorage.setItem('isAuthenticated', 'false');
+    console.error(
+      "Erreur lors de la vérification de l'authentification :",
+      error
+    );
+    localStorage.setItem("isAuthenticated", "false");
     return false;
   }
 };
@@ -116,7 +119,10 @@ const parseJwt = (token) => {
 
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const paddedBase64 = base64.padEnd(base64.length + ((4 - (base64.length % 4)) % 4), "=");
+    const paddedBase64 = base64.padEnd(
+      base64.length + ((4 - (base64.length % 4)) % 4),
+      "="
+    );
 
     const jsonPayload = decodeURIComponent(
       atob(paddedBase64)
@@ -137,8 +143,6 @@ const token = localStorage.getItem(TOKEN_KEY);
 if (token) {
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
-
-
 
 // Exporter les fonctions
 const authService = {
