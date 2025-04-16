@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice"; // Import de l'action login
 import authService from "../services/authService";
 import "../styles/Login.css";
 
@@ -18,12 +19,13 @@ const Login = () => {
     try {
       setLoading(true);
       const user = await authService.login(email, password);
-      dispatch(login({ user })); // Dispatch l'action Redux
-      localStorage.setItem('isAuthenticated', 'true'); // Mettre à jour manuellement
-      navigate('/'); // Redirection
+      dispatch(login({ user })); // Dispatch de l'action login
+      localStorage.setItem("isAuthenticated", "true");
+      navigate("/"); // Redirection
+      window.location.reload(); // Actualisation de la page
     } catch (err) {
       console.error("Erreur de connexion:", err);
-      setError(err || "Une erreur est survenue lors de la connexion");
+      setError(err.message || "Une erreur est survenue lors de la connexion");
     } finally {
       setLoading(false);
     }
@@ -37,7 +39,7 @@ const Login = () => {
           <p>Bienvenue sur GSB MedOrder</p>
         </div>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message">{error.toString()}</div>}
 
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">

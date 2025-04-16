@@ -326,7 +326,7 @@
 
 .detail-item {
   display: flex;
-  gap: 1rem;
+  align-items: center; 
 }
 
 .detail-icon {
@@ -344,6 +344,7 @@
 .detail-content {
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Aligne verticalement le texte */
 }
 
 .detail-label {

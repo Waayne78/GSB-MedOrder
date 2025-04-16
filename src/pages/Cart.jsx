@@ -277,9 +277,6 @@ const Cart = () => {
                 <button className="secondary-button" onClick={goToHome}>
                   Retour à l'accueil
                 </button>
-                <button className="primary-button" onClick={goToOrders}>
-                  Voir mes commandes
-                </button>
               </div>
             </>
           ) : (

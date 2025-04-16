@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../styles/HeroSection.css';
 
 const HeroSection = () => {
+  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true"; // Vérifie si l'utilisateur est connecté
+
   return (
     <section className="hero">
       <div className="hero-content">
@@ -20,9 +22,11 @@ const HeroSection = () => {
           <Link to="/catalogue" className="btn btn-primary">
             Explorer le catalogue
           </Link>
-          <Link to="/register" className="btn btn-outline">
-            Créer un compte
-          </Link>
+          {!isAuthenticated && ( // Affiche le bouton uniquement si l'utilisateur n'est pas connecté
+            <Link to="/register" className="btn btn-outline">
+              Créer un compte
+            </Link>
+          )}
         </div>
       </div>
     </section>
