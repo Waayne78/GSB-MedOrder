@@ -9,7 +9,9 @@ const getCartItems = () => {
 // Ajouter un article au panier
 const addToCart = (item) => {
   const cart = getCartItems();
-  const existingItemIndex = cart.findIndex((cartItem) => cartItem.id === item.id);
+  const existingItemIndex = cart.findIndex(
+    (cartItem) => cartItem.id === item.id
+  );
 
   if (existingItemIndex !== -1) {
     // Si l'article existe déjà, mettre à jour la quantité

@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require("../config/db");
 const orderController = require("../controllers/commandeController"); // Assurez-vous que cette ligne est correcte
 
-
 // Route de test simple
 router.get("/test", (req, res) => {
   res.json({ message: "Route de test fonctionnelle" });
@@ -21,28 +20,50 @@ router.get("/commandes", async (req, res) => {
 
 // Route pour créer une nouvelle commande
 router.post("/commandes", async (req, res) => {
-  const { items, total, date } = req.body;
-  
+  console.log("Corps complet de la requête:", req.body);
+  const { items, total, date, userId, praticienId } = req.body;
+
+  console.log("Type de userId:", typeof userId);
+  console.log("Valeur de userId:", userId);
+
   try {
-    // Désactiver temporairement les vérifications de clés étrangères
     await db.query("SET FOREIGN_KEY_CHECKS=0");
-    
-    // Récupérer un ID utilisateur valide
-    const [users] = await db.query("SELECT id FROM users LIMIT 1");
+
+    const [users] = await db.query("SELECT id FROM users WHERE id = ?", [
+      userId,
+    ]);
+    console.log("Utilisateurs trouvés:", users);
+
     if (users.length === 0) {
-      await db.query("SET FOREIGN_KEY_CHECKS=1"); // Réactiver les vérifications
-      return res.status(400).json({ message: "Aucun utilisateur trouvé" });
+      await db.query("SET FOREIGN_KEY_CHECKS=1");
+      return res.status(400).json({ message: "Utilisateur non trouvé" });
     }
-    
-    const userId = users[0].id;
-    
+
+    const userIdAsNumber = parseInt(userId, 10);
+    console.log("userId original:", userId, "Type:", typeof userId);
+    console.log(
+      "userId converti:",
+      userIdAsNumber,
+      "Type:",
+      typeof userIdAsNumber
+    );
+
     // Insérer la commande avec l'ID utilisateur
     const [result] = await db.query(
       "INSERT INTO commandes (pharmacien_id, praticien_id, status, date_commande, montant_total) VALUES (?, ?, ?, ?, ?)",
-      [userId, userId, "En attente", date, total]
+      [userIdAsNumber, praticienId || null, "En attente", date, total]
     );
 
     const commandeId = result.insertId;
+    console.log("Commande insérée avec ID:", commandeId);
+    console.log("pharmacien_id utilisé:", userIdAsNumber);
+
+    // Vérification immédiate
+    const [verification] = await db.query(
+      "SELECT * FROM commandes WHERE id = ?",
+      [commandeId]
+    );
+    console.log("Commande vérifiée après insertion:", verification[0]);
 
     // Insérer les détails de la commande
     for (const item of items) {
@@ -51,7 +72,7 @@ router.post("/commandes", async (req, res) => {
         [commandeId, item.id, item.quantity, item.price]
       );
     }
-    
+
     // Réactiver les vérifications de clés étrangères
     await db.query("SET FOREIGN_KEY_CHECKS=1");
 
