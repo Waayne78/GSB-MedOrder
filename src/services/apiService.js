@@ -14,7 +14,8 @@ const apiClient = axios.create({
 // Intercepteur pour ajouter le token d'authentification à chaque requête
 apiClient.interceptors.request.use(
   (config) => {
-    const token = authService.getToken();
+    const user = authService.getCurrentUser();
+    const token = user?.token; // ou user?.accessToken selon ton projet
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -27,7 +28,10 @@ apiClient.interceptors.request.use(
 
 // Intercepteur pour gérer les réponses
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    localStorage.setItem("token", response.data.token);
+    return response;
+  },
   (error) => {
     // Gestion des erreurs 401 (non autorisé)
     if (error.response && error.response.status === 401) {
@@ -43,7 +47,14 @@ const apiService = {
   // Méthode GET
   get: async (url, params = {}) => {
     try {
-      const response = await apiClient.get(url, { params });
+      // Récupère le token depuis le localStorage ou le service d'auth
+      const user = authService.getCurrentUser();
+      const token = user?.token || localStorage.getItem("token");
+      const headers = token
+        ? { Authorization: `Bearer ${token}` }
+        : {};
+
+      const response = await apiClient.get(url, { params, headers });
       return response;
     } catch (error) {
       console.error(`Erreur lors de la requête GET à ${url}:`, error);
@@ -83,6 +94,15 @@ const apiService = {
       throw error;
     }
   }
+};
+
+const getCurrentUser = () => {
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
+  const token = localStorage.getItem("token");
+  if (user && token) {
+    return { ...user, token };
+  }
+  return null;
 };
 
 export default apiService;

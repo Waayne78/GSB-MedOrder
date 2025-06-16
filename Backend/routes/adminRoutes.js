@@ -1,17 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
-const authenticateJWT = require("../middlewares/authenticateJWT"); // à adapter selon ton projet
 
-function isAdmin(req, res, next) {
-  if (req.user && req.user.role === "admin") {
-    return next();
-  }
-  return res.status(403).json({ message: "Accès refusé" });
-}
-
-// Protéger la route avec authenticateJWT AVANT isAdmin
-router.get("/users", authenticateJWT, isAdmin, async (req, res) => {
+// Route SANS authentification ni vérification admin
+router.get("/users", async (req, res) => {
   try {
     const [users] = await db.query(
       "SELECT id, email, firstname, lastname, role, created_at FROM users"
