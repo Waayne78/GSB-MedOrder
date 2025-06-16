@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import cartService from "../services/cartService";
 import orderService from "../services/commandeService";
+import authService from "../services/authService";
 import "../styles/Cart.css";
 import { FaShoppingCart, FaTrash, FaChevronLeft, FaCreditCard, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
@@ -53,13 +54,23 @@ const Cart = () => {
     setCheckoutStep(1);
   };
 
+  const user = authService.getCurrentUser();
+
   const handleOrder = async () => {
     try {
       setIsProcessing(true);
-      
+
+      if (!user || !user.id) {
+        alert("Vous devez être connecté pour commander.");
+        setIsProcessing(false);
+        return;
+      }
+
       const orderData = {
         items: cartItems,
         total: totalPrice,
+        userId: user.id,
+        praticienId: 1, // Ajouté ici
         date: new Date().toISOString(),
       };
 

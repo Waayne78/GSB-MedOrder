@@ -10,6 +10,7 @@ const practitionerRoutes = require("./routes/practitionerRoutes");
 const suiviCommandesRoutes = require("./routes/suiviCommandesRoutes");
 const commandeDetailsRoutes = require("./routes/commandeDetailsRoutes");
 const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -33,6 +34,7 @@ app.use("/api", suiviCommandesRoutes);
 app.use("/api", commandeDetailsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Fichiers statiques
 app.use("/images", express.static(path.join(__dirname, "public/images")));
@@ -78,3 +80,4 @@ app._router.stack.forEach((layer) => {
     });
   }
 });
+

@@ -35,7 +35,6 @@ router.post("/commandes", async (req, res) => {
     console.log("Utilisateurs trouvés:", users);
 
     if (users.length === 0) {
-      await db.query("SET FOREIGN_KEY_CHECKS=1");
       return res.status(400).json({ message: "Utilisateur non trouvé" });
     }
 
@@ -48,10 +47,12 @@ router.post("/commandes", async (req, res) => {
       typeof userIdAsNumber
     );
 
-    // Insérer la commande avec l'ID utilisateur
+    const praticienIdValue = 1; // Toujours 1
+
+    // Insérer la commande SANS praticien_id
     const [result] = await db.query(
-      "INSERT INTO commandes (pharmacien_id, praticien_id, status, date_commande, montant_total) VALUES (?, ?, ?, ?, ?)",
-      [userIdAsNumber, praticienId || null, "En attente", date, total]
+      "INSERT INTO commandes (pharmacien_id, praticien_id, statut, date_commande, montant_total) VALUES (?, ?, ?, ?, ?)",
+      [userIdAsNumber, praticienIdValue, "En attente", date, total]
     );
 
     const commandeId = result.insertId;
@@ -67,6 +68,13 @@ router.post("/commandes", async (req, res) => {
 
     // Insérer les détails de la commande
     for (const item of items) {
+      console.log("Ajout détail commande :", {
+        commandeId,
+        medicament_id: item.id,
+        quantite: item.quantity,
+        prix_unitaire: item.price,
+        item,
+      });
       await db.query(
         "INSERT INTO commande_details (commande_id, medicament_id, quantite, prix_unitaire) VALUES (?, ?, ?, ?)",
         [commandeId, item.id, item.quantity, item.price]
@@ -93,7 +101,7 @@ router.put("/commandes/:id", async (req, res) => {
   const { id } = req.params;
   const { statut } = req.body;
   try {
-    await db.query("UPDATE commandes SET status = ? WHERE id = ?", [
+    await db.query("UPDATE commandes SET statut = ? WHERE id = ?", [
       statut,
       id,
     ]);

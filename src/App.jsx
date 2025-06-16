@@ -11,6 +11,7 @@ import PractitionerProfile from './pages/PractitionerProfile';
 import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
 import OrderHistory from './pages/OrderHistory';
+import AdminUsersList from "./pages/AdminUsersList";
 import './styles/global.css';
 import authService from './services/authService';
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -62,6 +63,7 @@ function App() {
                   <OrderHistory />
                 </ProtectedRoute>
               } />
+              <Route path="/admin/users" element={<AdminUsersList />} />
             </Routes>
           </div>
         </ErrorBoundary>

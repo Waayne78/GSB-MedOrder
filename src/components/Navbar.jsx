@@ -179,6 +179,11 @@ const Navbar = () => {
           >
             Contact
           </NavLink>
+          {user && user.role === "admin" && (
+            <Link to="/admin/users" className="navbar-link">
+              Admin
+            </Link>
+          )}
         </nav>
 
         <div className="navbar-actions">
