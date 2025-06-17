@@ -96,13 +96,4 @@ const apiService = {
   }
 };
 
-const getCurrentUser = () => {
-  const user = JSON.parse(localStorage.getItem(USER_KEY));
-  const token = localStorage.getItem("token");
-  if (user && token) {
-    return { ...user, token };
-  }
-  return null;
-};
-
-export default apiService;
+export default apiService;  
