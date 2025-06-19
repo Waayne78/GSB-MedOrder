@@ -1,0 +1,346 @@
+.admin-users-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .admin-users-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-users-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .admin-users-subtitle {
+    text-align: center;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+    font-size: 1.1rem;
+  }
+  
+  .users-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: flex-start;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    border-left: 4px solid #667eea;
+    min-width: 180px;
+    flex: 1 1 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 220px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+  }
+  
+  /* Spécifique pour le chiffre d'affaires */
+  .stat-card .stat-number .euro {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: 0.2rem;
+    color: #667eea;
+  }
+  
+  .stat-label {
+    color: #666;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.1rem;
+  }
+  
+  .users-table-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .users-table th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1.2rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .users-table td {
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid #f1f3f4;
+    color: #495057;
+  }
+  
+  .users-table tr:hover {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s ease;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .user-details h4 {
+    margin: 0;
+    font-weight: 600;
+    color: #212529;
+  }
+  
+  .user-details p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.85rem;
+  }
+  
+  .role-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .role-admin {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+  }
+  
+  .role-user {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: white;
+  }
+  
+  .role-doctor {
+    background: linear-gradient(135deg, #45b7d1 0%, #96c93d 100%);
+    color: white;
+  }
+  
+  .user-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .action-btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.8rem;
+  }
+  
+  .edit-btn {
+    background: #007bff;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+  }
+  
+  .delete-btn {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .error-container {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  
+  .access-denied {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    color: white;
+    padding: 3rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .access-denied h2 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+  }
+  
+  .access-denied p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-users-container {
+      padding: 1rem;
+    }
+    
+    .admin-users-title {
+      font-size: 2rem;
+    }
+    
+    .users-table-container {
+      overflow-x: auto;
+    }
+    
+    .users-table th,
+    .users-table td {
+      padding: 0.8rem 0.5rem;
+      font-size: 0.8rem;
+    }
+    
+    .user-info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+  
+  .user-orders-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: flex-start;
+  }
+  
+  .orders-count {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .orders-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .orders-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-transform: lowercase;
+  }
+  
+  .orders-total {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #28a745;
+    background: rgba(40, 167, 69, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+  }
+  
+  @media (max-width: 1100px) {
+    .users-stats {
+      gap: 0.5rem;
+    }
+    .stat-card {
+      min-width: 140px;
+      max-width: 180px;
+      padding: 1rem 0.7rem;
+    }
+    .stat-number {
+      font-size: 1.3rem;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .users-stats {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .stat-card {
+      max-width: 100%;
+      min-width: 0;
+      width: 100%;
+    }
+  }
+  
