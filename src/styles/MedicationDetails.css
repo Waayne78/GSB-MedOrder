@@ -38,7 +38,8 @@ body {
 .detail-container {
   background-color: white;
   border-radius: 1.25rem;
-  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.10), 0 1.5px 4px rgba(44, 62, 80, 0.04);
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.1),
+    0 1.5px 4px rgba(44, 62, 80, 0.04);
   overflow: hidden;
   margin-bottom: var(--spacing-2xl);
   width: 100%;
@@ -46,7 +47,8 @@ body {
 }
 
 .detail-container:hover {
-  box-shadow: 0 16px 48px rgba(44, 62, 80, 0.13), 0 2px 8px rgba(44, 62, 80, 0.06);
+  box-shadow: 0 16px 48px rgba(44, 62, 80, 0.13),
+    0 2px 8px rgba(44, 62, 80, 0.06);
   transform: translateY(-2px) scale(1.01);
 }
 
@@ -352,11 +354,11 @@ body {
   .detail-meta {
     grid-template-columns: 1fr;
   }
-  
+
   .tabs-header {
     flex-wrap: wrap;
   }
-  
+
   .tab-button {
     flex: 1 1 auto;
     text-align: center;
@@ -384,7 +386,7 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;

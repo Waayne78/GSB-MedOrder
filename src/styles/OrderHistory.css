@@ -221,8 +221,12 @@
 }
 
 @keyframes spinner {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Message d'erreur */
@@ -796,41 +800,42 @@
   .order-history-container {
     padding: 1rem;
   }
-  
+
   .order-controls {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .search-container {
     width: 100%;
   }
-  
+
   .sort-container {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .order-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .order-status {
     align-self: flex-start;
   }
-  
+
   .order-actions {
     flex-direction: column;
     gap: 0.75rem;
   }
-  
-  .view-details-btn, .reorder-btn {
+
+  .view-details-btn,
+  .reorder-btn {
     width: 100%;
     justify-content: center;
   }
-  
+
   .order-detail-item {
     grid-template-columns: 60px 1fr;
     grid-template-areas:
@@ -838,34 +843,34 @@
       "image price";
     gap: 1rem;
   }
-  
+
   .item-image-placeholder {
     grid-area: image;
     width: 60px;
     height: 60px;
   }
-  
+
   .item-details {
     grid-area: details;
   }
-  
+
   .item-total-price {
     grid-area: price;
     justify-self: flex-start;
   }
-  
+
   .order-detail-actions {
     flex-direction: column;
   }
-  
+
   .modal-content {
     width: 95%;
     max-height: 95vh;
   }
-  
+
   .modal-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-} 
+}

@@ -12,9 +12,8 @@
 
 .contact-page {
   padding-top: 4rem;
-  min-height: 100vh;
+    min-height: 100vh;
   background: linear-gradient(120deg, #f3f4f6 0%, #e0e7ff 100%);
-  /* Ajoute un fond dégradé subtil */
 }
 
 /* Section Héro */
