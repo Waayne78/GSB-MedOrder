@@ -1,0 +1,85 @@
+.admin-users-list {
+  min-height: 100vh;
+  background: #f1f5f9;
+  padding: 3rem 1rem 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.admin-users-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.07);
+  padding: 2.5rem 2rem;
+  min-width: 340px;
+  max-width: 500px;
+  width: 100%;
+  margin-top: 3rem; /* Ajoute un espace au-dessus de la card */
+}
+
+.admin-users-card h2 {
+  color: #2563eb;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.admin-users-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-users-card li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 1.08rem;
+}
+
+.admin-users-card li:last-child {
+  border-bottom: none;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.user-email {
+  color: #64748b;
+  margin-left: 0.5rem;
+  font-size: 0.98rem;
+}
+
+.user-role {
+  margin-left: auto;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.7rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: #e0e7ff;
+  color: #2563eb;
+  text-transform: capitalize;
+}
+
+.user-role.admin {
+  background: #2563eb;
+  color: #fff;
+}
+
+.access-denied {
+  color: #fff;
+  background: #ef4444;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  margin: 4rem auto;
+  font-size: 1.2rem;
+  max-width: 400px;
+}
