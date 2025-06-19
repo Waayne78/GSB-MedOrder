@@ -308,56 +308,58 @@
 }
 
 /* Styles pour les notifications */
-.notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 14px 20px;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+.notification, .notification-success, .notification-error {
+  position: fixed !important;
+  bottom: 32px;
+  right: 32px;
+  left: auto;
+  top: auto;
   z-index: 9999;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s, transform 0.3s;
-  max-width: 350px;
-}
-
-.notification.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.notification-success {
-  background-color: #d4edda;
-  color: #155724;
-  border-left: 4px solid #28a745;
-}
-
-.notification-error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border-left: 4px solid #dc3545;
-}
-
-.notification-warning {
-  background-color: #fff3cd;
-  color: #856404;
-  border-left: 4px solid #ffc107;
-}
-
-.notification-content {
+  min-width: 0;
+  max-width: 320px;
+  width: auto;
+  padding: 0.9rem 1.3rem;
+  border-radius: 1.2rem;
+  box-shadow: 0 4px 24px 0 rgba(30,41,59,0.10);
   display: flex;
   align-items: center;
-}
-
-.notification-content svg {
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-.notification-content span {
-  line-height: 1.5;
+  gap: 0.7rem;
+  font-size: 1rem;
   font-weight: 500;
+  background: #e6f9ed;
+  color: #15803d;
+  border: none;
+  animation: slideInToast 0.3s cubic-bezier(.4,0,.2,1);
+}
+.notification-success {
+  background: #e6f9ed;
+  color: #15803d;
+}
+.notification-error {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+.notification .notification-content, .notification-success .notification-content, .notification-error .notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.notification .notification-content svg,
+.notification-success .notification-content svg,
+.notification-error .notification-content svg {
+  min-width: 22px;
+  min-height: 22px;
+  width: 22px;
+  height: 22px;
+  margin-right: 0.5em;
+}
+@keyframes slideInToast {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.notification.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Styles modernisés pour les boutons */

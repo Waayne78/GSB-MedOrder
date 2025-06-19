@@ -81,7 +81,7 @@ const MedicationDetail = () => {
       const itemToAdd = {
         id: medication.id,
         name: medication.name,
-        price: medication.price,
+        price: Number(medication.price),
         category: medication.category,
         image: medication.image,
         quantity: quantity,
@@ -218,17 +218,37 @@ const MedicationDetail = () => {
               </div>
             </div>
 
-            <div className="quantity-section">
-              <button onClick={handleDecreaseQuantity} disabled={quantity <= 1}>
-                -
+            <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 32 }}>
+              <div className="quantity-selector">
+                <button className="quantity-btn" onClick={handleDecreaseQuantity} disabled={quantity <= 1} aria-label="Diminuer la quantité">
+                  -
+                </button>
+                <input
+                  type="number"
+                  className="quantity-input"
+                  min={1}
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  aria-label="Quantité"
+                />
+                <button className="quantity-btn" onClick={handleIncreaseQuantity} aria-label="Augmenter la quantité">
+                  +
+                </button>
+              </div>
+              <button
+                className="btn-add-to-cart-large"
+                onClick={handleAddToCart}
+                aria-label="Ajouter ce médicament au panier"
+                type="button"
+              >
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{marginRight: 8}}>
+                  <circle cx="9" cy="21" r="1"/>
+                  <circle cx="20" cy="21" r="1"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61l1.38-7.39H6"/>
+                </svg>
+                AJOUTER AU PANIER
               </button>
-              <span>{quantity}</span>
-              <button onClick={handleIncreaseQuantity}>+</button>
             </div>
-
-            <button className="add-to-cart-btn" onClick={handleAddToCart}>
-              Ajouter au panier
-            </button>
           </div>
         </div>
       </div>

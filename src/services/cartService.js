@@ -1,5 +1,10 @@
 const CART_KEY = "cart";
 
+// Fonction utilitaire pour notifier les changements du panier
+const notifyCartUpdate = () => {
+  window.dispatchEvent(new Event("cartUpdated"));
+};
+
 // Récupérer les articles du panier
 const getCartItems = () => {
   const cart = localStorage.getItem(CART_KEY);
@@ -22,6 +27,7 @@ const addToCart = (item) => {
   }
 
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  notifyCartUpdate();
 };
 
 // Supprimer un article du panier
@@ -29,6 +35,7 @@ const removeFromCart = (itemId) => {
   const cart = getCartItems();
   const updatedCart = cart.filter((item) => item.id !== itemId);
   localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
+  notifyCartUpdate();
 };
 
 // Mettre à jour la quantité d'un article
@@ -38,11 +45,13 @@ const updateCartItemQuantity = (itemId, quantity) => {
     item.id === itemId ? { ...item, quantity } : item
   );
   localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
+  notifyCartUpdate();
 };
 
 // Vider le panier
 const clearCart = () => {
   localStorage.removeItem(CART_KEY);
+  notifyCartUpdate();
 };
 
 // Obtenir le nombre total d'articles

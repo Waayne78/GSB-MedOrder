@@ -80,9 +80,16 @@ const Navbar = () => {
 
       window.addEventListener("storage", handleStorageChange);
 
+      // Écouter les changements du panier (event custom)
+      const handleCartUpdate = () => {
+        updateCartCount();
+      };
+      window.addEventListener("cartUpdated", handleCartUpdate);
+
       // Nettoyer l'écouteur d'événements
       return () => {
         window.removeEventListener("storage", handleStorageChange);
+        window.removeEventListener("cartUpdated", handleCartUpdate);
       };
     } catch (error) {
       console.error("Erreur dans useEffect du Navbar:", error);

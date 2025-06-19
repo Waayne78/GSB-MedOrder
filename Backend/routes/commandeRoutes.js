@@ -51,7 +51,7 @@ router.post("/commandes", async (req, res) => {
 
     // Insérer la commande SANS praticien_id
     const [result] = await db.query(
-      "INSERT INTO commandes (pharmacien_id, praticien_id, statut, date_commande, montant_total) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO commandes (pharmacien_id, praticien_id, status, date_commande, montant_total) VALUES (?, ?, ?, ?, ?)",
       [userIdAsNumber, praticienIdValue, "En attente", date, total]
     );
 
